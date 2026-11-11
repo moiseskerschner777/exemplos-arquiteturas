@@ -1,2 +1,4 @@
 target/
 node_modules/
+caracterizacao/resultados.json
+caracterizacao/ultima-execucao.log

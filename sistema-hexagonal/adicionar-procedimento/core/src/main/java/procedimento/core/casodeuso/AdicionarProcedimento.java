@@ -12,12 +12,15 @@ import procedimento.core.dominio.CalculoDePrazo;
 import procedimento.core.dominio.CalculoDePreco;
 import procedimento.core.dominio.CategoriaAtendimento;
 import procedimento.core.dominio.CobrancaDoDia;
-import procedimento.core.dominio.ConfiguracaoPrazo;
 import procedimento.core.dominio.DefinicaoDeSetor;
+import procedimento.core.dominio.ErroDePrazo;
 import procedimento.core.dominio.ExcecaoContrato;
 import procedimento.core.dominio.FontePagadora;
+import procedimento.core.dominio.ListaPosicional;
 import procedimento.core.dominio.Material;
+import procedimento.core.dominio.ParametrosDePrazo;
 import procedimento.core.dominio.Pendencia;
+import procedimento.core.dominio.PrazoDaUnidade;
 import procedimento.core.dominio.Procedimento;
 import procedimento.core.dominio.Recipientes;
 import procedimento.core.dominio.RedirecionamentoSetor;
@@ -29,6 +32,7 @@ import procedimento.core.erro.MotivoRecusa;
 import procedimento.core.porta.in.AdicionarProcedimentoPortIn;
 import procedimento.core.porta.in.dto.AdicionarProcedimentoDto;
 import procedimento.core.porta.in.dto.ProcedimentoAdicionadoDto;
+import procedimento.core.porta.out.PrazoRepositoryPortOut;
 
 public class AdicionarProcedimento implements AdicionarProcedimentoPortIn {
 
@@ -226,11 +230,8 @@ public class AdicionarProcedimento implements AdicionarProcedimentoPortIn {
         });
 
         LocalDateTime agora = LocalDateTime.now(relogio);
-        ConfiguracaoPrazo rotina = Optional.ofNullable(procedimento.rotinaPrazoId())
-                .flatMap(repositorios.prazos()::buscarRotina)
-                .orElse(null);
-        inclusao.entrega = CalculoDePrazo.calcular(procedimento, rotina, agora)
-                .orElseThrow(() -> recusa(MotivoRecusa.ERRO_PRAZO, "procedimento " + procedimento.mnemonico() + " sem prazo configurado"));
+        String setorDefinido = definirSetor(inclusao, procedimento);
+        calcularPrazo(inclusao, procedimento, setorDefinido, agora);
 
         CalculoDePreco.Resultado preco = calcularPreco(inclusao.fontePagadora, inclusao.excecao, procedimento.id());
         switch (preco.situacao()) {
@@ -244,13 +245,34 @@ public class AdicionarProcedimento implements AdicionarProcedimentoPortIn {
 
         definirMaterial(inclusao, procedimento, comando);
 
+        Optional<String> destino = Optional.ofNullable(setorDefinido)
+                .flatMap(s -> RedirecionamentoSetor.destino(repositorios.setores().buscarRedirecionamentos(s, inclusao.unidade.id()), agora));
+        inclusao.setor = destino.orElse(setorDefinido);
+    }
+
+    private String definirSetor(Inclusao inclusao, Procedimento procedimento) {
         String setorQueProcessaRotina = Optional.ofNullable(procedimento.setorPadraoId())
                 .flatMap(setor -> repositorios.setores().buscarSetorQueProcessaRotina(inclusao.unidade.unidadeAtendimentoId(), setor))
                 .orElse(null);
-        String setor = DefinicaoDeSetor.definir(procedimento, inclusao.unidade.id(), setorQueProcessaRotina);
-        Optional<String> destino = Optional.ofNullable(setor)
-                .flatMap(s -> RedirecionamentoSetor.destino(repositorios.setores().buscarRedirecionamentos(s, inclusao.unidade.id()), agora));
-        inclusao.setor = destino.orElse(setor);
+        return DefinicaoDeSetor.definir(procedimento, inclusao.unidade.id(), setorQueProcessaRotina);
+    }
+
+    private void calcularPrazo(Inclusao inclusao, Procedimento procedimento, String setor, LocalDateTime agora) {
+        PrazoRepositoryPortOut prazos = repositorios.prazos();
+        PrazoDaUnidade unidade = prazos.buscarPrazoDaUnidade(inclusao.unidade.id())
+                .orElseThrow(() -> recusa(MotivoRecusa.ERRO_PRAZO, "unidade de coleta " + inclusao.unidade.id() + " sem configuração de prazo"));
+        ParametrosDePrazo parametros = prazos.buscarParametros()
+                .orElseThrow(() -> recusa(MotivoRecusa.ERRO_PRAZO, "parâmetros gerais de prazo não cadastrados"));
+        ListaPosicional diasProducaoSetor = setor == null ? ListaPosicional.vazia() : prazos.buscarDiasProducaoDoSetor(setor);
+        CalculoDePrazo.Entrada entrada = new CalculoDePrazo.Entrada(procedimento.mnemonico(), procedimento.descricao(),
+                procedimento.prazo(), unidade, diasProducaoSetor, parametros, prazos.buscarFeriados(), prazos::buscarRotina);
+        try {
+            CalculoDePrazo.Resultado prazo = CalculoDePrazo.calcular(entrada, agora);
+            inclusao.entrega = prazo.entrega();
+            inclusao.prazoMinimo = prazo.prazoMinimo();
+        } catch (ErroDePrazo erro) {
+            throw recusa(MotivoRecusa.ERRO_PRAZO, erro.getMessage());
+        }
     }
 
     private void definirMaterial(Inclusao inclusao, Procedimento procedimento, AdicionarProcedimentoDto comando) {
@@ -318,6 +340,7 @@ public class AdicionarProcedimento implements AdicionarProcedimentoPortIn {
                 inclusao.valor,
                 inclusao.negociacaoEspecial,
                 inclusao.entrega,
+                inclusao.prazoMinimo,
                 inclusao.material == null ? null : inclusao.material.id(),
                 inclusao.materialDescricao,
                 inclusao.materialComplementoObrigatorio,
@@ -355,6 +378,7 @@ public class AdicionarProcedimento implements AdicionarProcedimentoPortIn {
         private String fraseAutorizacao;
         private String alertaCadastro;
         private LocalDateTime entrega;
+        private LocalDateTime prazoMinimo;
         private BigDecimal valor = BigDecimal.ZERO;
         private boolean negociacaoEspecial;
         private Material material;

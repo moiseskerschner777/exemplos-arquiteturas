@@ -5,12 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import javax.sql.DataSource;
+
+import procedimento.core.dominio.ListaPosicional;
 
 public final class Consulta {
 
@@ -77,6 +80,15 @@ public final class Consulta {
     public static String texto(ResultSet resultado, String coluna) throws SQLException {
         Object valor = resultado.getObject(coluna);
         return valor == null ? null : valor.toString();
+    }
+
+    public static Integer segundos(ResultSet resultado, String coluna) throws SQLException {
+        LocalTime hora = resultado.getObject(coluna, LocalTime.class);
+        return hora == null ? null : hora.toSecondOfDay();
+    }
+
+    public static ListaPosicional listaPosicional(String valor) {
+        return new ListaPosicional(listaSeparada(valor));
     }
 
     public static List<String> listaSeparada(String valor) {

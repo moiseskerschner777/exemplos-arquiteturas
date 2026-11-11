@@ -23,8 +23,7 @@ public record Procedimento(
         String setorExclusivoId,
         Map<String, String> setorPorUnidade,
         Integer amostraEncaminhada,
-        Integer prazoMinimoSegundos,
-        String rotinaPrazoId,
+        PrazoProcedimento prazo,
         List<String> recipientes,
         Map<String, List<String>> recipientesPorUnidade) {
 

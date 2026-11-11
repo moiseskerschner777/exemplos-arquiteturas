@@ -19315,6 +19315,23 @@ copy regiao_item (id, data_final, data_inicio, fuso, regiao_id, versao_check) fr
 copy horario_verao (id, data_final, data_inicio, fuso, versao_check) from stdin;
 \.
 
+copy parametro_geral (id, area_notificacao_compulsoria, area_notificacao_lab_apoio, area_notificacao_mensagem, area_notificacao_os_solicitante, area_notificacao_paciente, area_notificacao_repeticao, area_notificacao_resultado, area_notificacao_solicitante, area_retificacao_laudo, assinatura_por_procedimento, ch_deve_doc, controla_guias, cor_fundo_resultado_absurdo, cor_fundo_resultado_alterado, cor_fundo_resultado_critico, cor_fundo_resultado_normal, cor_fundo_resultado_notificacao, cor_resultado_absurdo, cor_resultado_alterado, cor_resultado_critico, cor_resultado_normal, cor_resultado_notificacao, cpf_obrigatorio, dia_entrega, dia_producao, emite_resultado_pago_parcial, exames_restr_consulta_cadastro, exibir_codigo_os, exibir_data_nascimento, exibir_data_realizacao, exibir_descricao_procedimento, exibir_mnemonico, exibir_nome_paciente, exibir_sexo, exibir_solicitante, exibir_unidade_coleta, final_os, finalizacao_rota, formato_antibiograma, formato_assinatura_laudo, frase_material_encaminhado, frase_procedimento_com_restricao, frase_retificacao_com_complemento, frase_retificacao_sem_complemento, gera_fatura, gerenciamento_pacs, grupo_laudo_obsevacao_externa, grupo_laudo_obsevacao_interna, grupo_laudo_resultado_parcial, horario_entrega, horario_limite, identificacao_renach, identificador_layout_dmed, integracao_elis_controller, lib_especial_exame, lib_especial_exame_tipo, lib_especial_exame_usuario, lib_especial_medico, lib_especial_medico_usuario, lib_especial_paciente, lib_especial_paciente_usuario, local_armazenamento, local_impressao, local_impressao_observacao, mascara_c_barra, mascara_c_barra_repeticao, mostrar_hora_resultado_anterior, motivo_log_procedimento_com_restricao, nome_procedimento_laudo, notificacao_usuario, obr_autorizacao_entrega, obr_ctrl_guia_fecha_caixa, obrigado_caucao, obs_setor_por_procedimento, observacoes, operacao, ordem_impressao, percentual_max_desconto, percentual_mim_sinal, posicao_gravar_dados_imagem, posto_impressao_sub_tubo, postos_coleta_urgente, prazo_maximo_orcamento, prazo_resposta_reacao_adversa, procedimento_com_restricao, procedimentos_necessitam_complemento, procedimentos_obrigatorio_imagem, qtd_rel_programado_por_usuario, rastreabilidade, registra_coleta, resolucao_captura, rg_obrigatorio, salto_pagina, senha_prazo_validade, senha_tamanho_minimo, tabela_deve_doc, tipo_cbarra, tipo_fracionamento, tipo_prazo_orcamento, titulo_unico_laudo_comparativo, triagem_codigo_barras, triagem_recebe_pendencia_repeticao, unidades_nao_obrigatorio_imagem, url_armazenamento_relatorio, usuarios_restr_consulta_cadastro, utiliza_rg, va_arquivo_log, va_diretorio_arquivos_temp, va_diretorio_jar, va_diretorio_java_bin, va_diretorio_log, va_host_cache, va_lista_exames_negados, va_lista_postos_negados, va_namespace, va_nivel_log, va_observacao_bloqueia, va_porta_cache, va_senha_cache_banco, va_uni_coleta_assinatura, va_usuario_assinatura, va_usuario_assinatura_padrao, va_usuario_cache_banco, va_verifica_procedimento_restricao, vacina_gera_comunicacao_aplicacao, versao_check) from stdin;
+UNICO	4	1	1	1	1	2	3	1	5	3	\N	1	ORANGE	YELLOW	RED	GREEN	BLACK	BLACK	BLACK	WHITE	WHITE	WHITE	0	,1,2,3,4,5,6	,1,2,3,4,5,6	0	\N	t	t	\N	\N	\N	t	f	\N	\N	U	0	1	\N	Amostra biológica encaminhada ao laboratório	\N	Este laudo retifica o laudo emitido em <DATA_IMPRESSAO> às <HORA_IMPRESSAO>, conforme RDC 302/200. \n \nOs seguintes campos foram alterados: \n<DESCRICAO_CAMPO_MASCARA>.	Este laudo retifica o laudo emitido em <DATA_IMPRESSAO> às <HORA_IMPRESSAO>, conforme RDC 302/200. \n \nOs seguintes campos foram alterados: \n<DESCRICAO_CAMPO_MASCARA>.	8	AGENDA	1	2	\N	17:00:00	13:00:00	\N	S5830B	0	\N	1	\N	\N	\N	\N	\N	/usr/irissys/csp/desenvolvimento/tmp/	ULTIMAPAGINA	APOSTABELA	YYSSSSSSSSAA	YYYYSSSSSSAA	0	\N	2	\N	0	0	1	0	\N	I	1	\N	\N	SUPERIORESQUERDA	\N	\N	7	0	2	\N	\N	20	0	0	HD	0	1	360	4	\N	2	RECIPIENTE	DIASUTEIS	Laudo evolutivo	3	0	\N	https://desenvolvimento.exemplo.local/lis/desenvolvimento/tmp/	\N	1	\N	\N	\N	\N	\N	localhost	87,418,419,420,421,422,423,424,71,72,73,74,75,76,77,79,80,81,145,146,147,148	\N	LIS	FATAL	0	1972	REMOVIDO	\N	\N	2	usuario	1	0	20
+\.
+
+copy feriado (id, ano_feriado, data, definicao, descricao, tipo_feriado, versao_check) from stdin;
+000001	*	25/12	G	Natal	A	0
+000002	*	01/01	G	Ano novo	A	0
+000003	*	01/05	G	Dia do trabalho	A	0
+000004	*	07/09	G	Independência do Brasil	A	0
+000005	*	12/10	G	Nossa Senhora Aparecida	A	0
+000006	*	02/11	G	Finados	A	0
+000007	*	15/10	G	Proclamação da República	A	0
+\.
+
+copy feriado_unidade (id, feriado_id, unidade_atendimento_id, unidade_coleta_id, versao_check) from stdin;
+\.
+
 copy tuss (id, codigo_tuss, descricao_tuss, grupo, tipo, versao_check) from stdin;
 1	40301044	Acetilcolinesterase, em eritrocitos - pesquisa e/ou dosagem	\N	\N	0
 2	40301052	Acetona, pesquisa e/ou dosagem no soro	\N	\N	0
@@ -22017,6 +22034,9 @@ select setval('regiao_item_id_seq', coalesce((select max(id) from regiao_item), 
 create sequence horario_verao_id_seq owned by horario_verao.id;
 alter table horario_verao alter column id set default nextval('horario_verao_id_seq');
 select setval('horario_verao_id_seq', coalesce((select max(id) from horario_verao), 0) + 1, false);
+create sequence feriado_unidade_id_seq owned by feriado_unidade.id;
+alter table feriado_unidade alter column id set default nextval('feriado_unidade_id_seq');
+select setval('feriado_unidade_id_seq', coalesce((select max(id) from feriado_unidade), 0) + 1, false);
 create sequence tuss_id_seq owned by tuss.id;
 alter table tuss alter column id set default nextval('tuss_id_seq');
 select setval('tuss_id_seq', coalesce((select max(id) from tuss), 0) + 1, false);

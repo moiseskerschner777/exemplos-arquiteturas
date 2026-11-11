@@ -124,6 +124,15 @@ cenários por regra:
 
     a regra setor fica no C00: Setor 003 para a unidade 2
 
+    prazo de entrega, s01.util.PrazoExames.ControlePrazo:
+        - C00: prazo de 1 dia útil, sem rotina; Entrega no dia útil seguinte às 17:00; prazo mínimo de 8 horas
+        - C40: rotina de prazo 001, dias 2 e 4, 2 dias úteis depois do dia da rotina; Entrega no sábado às 17:00
+        - C41: prazo de 3 dias corridos
+        - C42: prazo de 90000 segundos, passa da meia-noite; Entrega no dia seguinte, 1 hora depois do início
+        - C43: horário limite do dia às 00:00:01; o prazo começa no dia produtivo seguinte
+        - C44: unidade 2 libera por procedimento e a tela manda urgente; Entrega igual ao prazo mínimo
+        - C45: PrazoCodigoRotina gravado como '' pelo SQL; retorno 1, ErroTipo erroPrazo, prazo não é válido
+
 regras sem cenário:
 
     - fatura fechada da fonte pagadora complementar: o banco local não tem franquia compartilhada nem fonte pagadora
@@ -133,7 +142,6 @@ regras sem cenário:
     - segunda verificação de procedimento ativo: a regra procedimento ativo barra antes;
     com ^||IgnorarValidacoesOs as duas são puladas
     - autorização online: o banco local não tem fonte pagadora com autorização online, layout e código 97
-    - prazo de entrega: o banco local não tem procedimento sem prazo; unidade de coleta 99 devolve retorno 0 sem erro no proxy
     - componentes do composto: o banco local não tem procedimento composto ativo
     - procedimento repetido no recipiente: o método sobrescreve pProxyRetorno.Exame,
     então uma chamada não repete o procedimento
@@ -149,9 +157,12 @@ comportamentos que a migração precisa manter:
     - teto de faturamento ligado sem período configurado dá saldo -1 e recusa como teto excedido
     - negociação especial aceita a inclusão com valor 0
     - complemento obrigatório entra na descrição do material em minúsculas
+    - PrazoCodigoRotina é o prazo em dias quando o procedimento não usa rotina, e o código da rotina quando usa
+    - string vazia gravada pelo SQL vira $C(0) no IRIS: o prazo é tratado como inválido, não como ausente
 
 resumo:
 
-    - 26 cenários, 22 regras cobertas, 8 sem dado local para montar
-    - 26 passam contra o IRIS local em duas execuções seguidas
+    - 32 cenários, 23 regras cobertas, 7 sem dado local para montar
+    - 6 deles de prazo de entrega, C40 a C45, acrescentados na comparação com o Java
+    - 32 passam contra o IRIS local
     - banco conferido depois das execuções: nenhum ajuste ficou gravado

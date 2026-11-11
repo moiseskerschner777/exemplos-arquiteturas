@@ -14,6 +14,7 @@ public record ProcedimentoAdicionadoDto(
         BigDecimal valor,
         boolean negociacaoEspecial,
         LocalDateTime entrega,
+        LocalDateTime prazoMinimo,
         String materialId,
         String materialDescricao,
         boolean materialComplementoObrigatorio,

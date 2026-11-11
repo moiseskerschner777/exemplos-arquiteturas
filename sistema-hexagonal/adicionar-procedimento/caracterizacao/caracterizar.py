@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import re
@@ -67,6 +68,18 @@ TRADUCAO = {
         "values (1, 1, 31, 1000, true)",
     "UPDATE dado.TblPosto SET AmostraEncaminhada = 3 WHERE ID = 2":
         "update unidade_coleta set amostra_encaminhada = 3 where id = 2",
+    "UPDATE dado.TblExame SET PrazoRotinaUtilizaRotina = 1, PrazoCodigoRotina = '001' WHERE ID = '34'":
+        "update procedimento set prazo_rotina_utiliza_rotina = 1, prazo_codigo_rotina = '001' where id = '34'",
+    "UPDATE dado.TblExame SET PrazoRotinaTipo = 2, PrazoCodigoRotina = '3' WHERE ID = '34'":
+        "update procedimento set prazo_rotina_tipo = 2, prazo_codigo_rotina = '3' where id = '34'",
+    "UPDATE dado.TblExame SET PrazoRotinaTipo = 3, PrazoCodigoRotina = '90000' WHERE ID = '34'":
+        "update procedimento set prazo_rotina_tipo = 3, prazo_codigo_rotina = '90000' where id = '34'",
+    "UPDATE dado.TblS01Parametro SET HorarioLimite = 1 WHERE ID = 'UNICO'":
+        "update parametro_geral set horario_limite = '00:00:01' where id = 'UNICO'",
+    "UPDATE dado.TblPosto SET TipoLiberacao = 'P' WHERE ID = 2":
+        "update unidade_coleta set tipo_liberacao = 'P' where id = 2",
+    "UPDATE dado.TblExame SET PrazoCodigoRotina = '' WHERE ID = '34'":
+        "update procedimento set prazo_codigo_rotina = '' where id = '34'",
 }
 
 TABELAS_ALTERADAS = sorted({re.search(r"(?:update|into) (\w+)", sql).group(1) for sql in TRADUCAO.values()})
@@ -134,7 +147,10 @@ def como_cos(status, corpo, codigos):
     if status == 422:
         codigo, retorno = corpo["codigoCos"], corpo["retornoCos"]
         obtido["retorno"] = retorno
-        if codigo.startswith("temErroMnemo="):
+        if corpo["motivo"] == "ERRO_PRAZO":
+            obtido["ErroTipo"] = codigo
+            obtido["ErroDescricao"] = corpo["mensagem"]
+        elif codigo.startswith("temErroMnemo="):
             obtido["temErroMnemo"] = int(codigo.split("=")[1])
         elif corpo["motivo"] == "MATERIAL_DIVERSOS_PENDENTE":
             obtido["verificaDiversosMaterias"] = corpo["materialId"]
@@ -186,12 +202,13 @@ def main():
         for cenario in cenarios:
             for ajuste in cenario["ajustes"]:
                 cursor.execute(TRADUCAO[ajuste])
+            momento = datetime.datetime.now().replace(microsecond=0).isoformat()
             try:
                 status, corpo = chamar(cenario)
                 obtido = como_cos(status, corpo, codigos)
                 diferencas = [{"campo": campo, "esperado": valor, "obtido": obtido.get(campo)}
                               for campo, valor in cenario["esperado"].items() if not igual(valor, obtido.get(campo))]
-                resultados.append({"id": cenario["id"], "status": status, "resposta": corpo,
+                resultados.append({"id": cenario["id"], "momento": momento, "status": status, "resposta": corpo,
                                    "situacao": "passou" if not diferencas else "diferente", "diferencas": diferencas})
             except Exception as erro:
                 resultados.append({"id": cenario["id"], "situacao": "erro", "excecao": str(erro), "diferencas": []})

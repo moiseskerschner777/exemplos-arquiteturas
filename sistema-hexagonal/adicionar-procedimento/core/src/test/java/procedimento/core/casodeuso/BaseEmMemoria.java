@@ -13,13 +13,18 @@ import procedimento.core.dominio.Atendimento;
 import procedimento.core.dominio.CategoriaAtendimento;
 import procedimento.core.dominio.CobrancaDoDia;
 import procedimento.core.dominio.ComponentePreco;
-import procedimento.core.dominio.ConfiguracaoPrazo;
 import procedimento.core.dominio.ExcecaoContrato;
+import procedimento.core.dominio.Feriado;
 import procedimento.core.dominio.FontePagadora;
 import procedimento.core.dominio.ItemAtendimento;
+import procedimento.core.dominio.ListaPosicional;
 import procedimento.core.dominio.Material;
+import procedimento.core.dominio.ParametrosDePrazo;
+import procedimento.core.dominio.PrazoDaUnidade;
+import procedimento.core.dominio.PrazoProcedimento;
 import procedimento.core.dominio.Procedimento;
 import procedimento.core.dominio.RedirecionamentoSetor;
+import procedimento.core.dominio.RotinaPrazo;
 import procedimento.core.dominio.Sexo;
 import procedimento.core.dominio.TetoFaturamento;
 import procedimento.core.dominio.TipoProcedimento;
@@ -28,6 +33,7 @@ import procedimento.core.porta.out.ContratoRepositoryPortOut;
 import procedimento.core.porta.out.FaturaRepositoryPortOut;
 import procedimento.core.porta.out.MaterialRepositoryPortOut;
 import procedimento.core.porta.out.PercentualCobrancaRepositoryPortOut;
+import procedimento.core.porta.out.PrazoRepositoryPortOut;
 import procedimento.core.porta.out.ProcedimentoRepositoryPortOut;
 import procedimento.core.porta.out.SetorRepositoryPortOut;
 
@@ -69,6 +75,9 @@ class BaseEmMemoria {
         return base;
     }
 
+    static final PrazoProcedimento PRAZO_PADRAO = new PrazoProcedimento("1", "28800", 3, 1, false, ListaPosicional.vazia(),
+            ListaPosicional.vazia(), ListaPosicional.vazia(), ListaPosicional.vazia(), ListaPosicional.vazia(), ListaPosicional.vazia());
+
     static Procedimento procedimento(String id, String mnemonico, String descricao, String materialId, boolean ativo) {
         return new ProcedimentoTeste(id, mnemonico, descricao, materialId, ativo).criar();
     }
@@ -97,7 +106,7 @@ class BaseEmMemoria {
 
         Procedimento criar() {
             return new Procedimento(id, mnemonico, descricao, sexo, TipoProcedimento.deCodigo(tipo), ativo, materialId, microbiologia,
-                    null, tsaId, antibiograma, alertaCadastro, 1, false, "003", null, Map.of(), 1, 28800, "1", List.of("4"), Map.of());
+                    null, tsaId, antibiograma, alertaCadastro, 1, false, "003", null, Map.of(), 1, PRAZO_PADRAO, List.of("4"), Map.of());
         }
 
     }
@@ -191,7 +200,34 @@ class BaseEmMemoria {
                     }
                 },
                 (procedimentoId, tabelaPrecoId) -> Optional.ofNullable(codigosAmb.get(tabelaPrecoId + "|" + procedimentoId)),
-                rotinaPrazoId -> Optional.<ConfiguracaoPrazo>empty(),
+                new PrazoRepositoryPortOut() {
+                    @Override
+                    public Optional<RotinaPrazo> buscarRotina(String rotinaPrazoId) {
+                        return Optional.empty();
+                    }
+
+                    @Override
+                    public Optional<PrazoDaUnidade> buscarPrazoDaUnidade(String unidadeColetaId) {
+                        return Optional.of(new PrazoDaUnidade(unidadeColetaId, "Unidade " + unidadeColetaId, "1", "S",
+                                ListaPosicional.vazia(), ListaPosicional.vazia(), null, null));
+                    }
+
+                    @Override
+                    public ListaPosicional buscarDiasProducaoDoSetor(String setorId) {
+                        return ListaPosicional.vazia();
+                    }
+
+                    @Override
+                    public Optional<ParametrosDePrazo> buscarParametros() {
+                        ListaPosicional diasUteis = new ListaPosicional(List.of("", "1", "2", "3", "4", "5", "6"));
+                        return Optional.of(new ParametrosDePrazo(diasUteis, diasUteis, 46800, 61200));
+                    }
+
+                    @Override
+                    public List<Feriado> buscarFeriados() {
+                        return List.of();
+                    }
+                },
                 (tabelaPrecoId, procedimentoId, fontePagadoraId) ->
                         new ArrayList<>(componentes.getOrDefault(tabelaPrecoId + "|" + procedimentoId, List.of())),
                 new SetorRepositoryPortOut() {

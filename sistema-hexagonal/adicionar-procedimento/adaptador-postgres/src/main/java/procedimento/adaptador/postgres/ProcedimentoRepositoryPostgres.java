@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
+import procedimento.core.dominio.PrazoProcedimento;
 import procedimento.core.dominio.Procedimento;
 import procedimento.core.dominio.Sexo;
 import procedimento.core.dominio.TipoProcedimento;
@@ -57,10 +58,24 @@ public class ProcedimentoRepositoryPostgres implements ProcedimentoRepositoryPor
                 linha.getString("setor_exclusivo"),
                 pares(linha.getString("setor_codigo_posto"), linha.getString("setor_por_posto")),
                 Consulta.inteiro(linha, "amostra_encaminhada"),
-                Consulta.inteiro(linha, "prazo_minimo"),
-                linha.getString("prazo_codigo_rotina"),
+                prazo(linha),
                 recipientes(id, linha.getString("recipiente")),
                 recipientesPorUnidade(linha.getString("recipiente_unidade_unidade"), linha.getString("recipiente_unidade_recipiente")));
+    }
+
+    private static PrazoProcedimento prazo(ResultSet linha) throws SQLException {
+        return new PrazoProcedimento(
+                linha.getString("prazo_codigo_rotina"),
+                linha.getString("prazo_minimo"),
+                Consulta.inteiro(linha, "prazo_minimo_tipo"),
+                Consulta.inteiro(linha, "prazo_rotina_tipo"),
+                Consulta.ligado(linha, "prazo_rotina_utiliza_rotina"),
+                Consulta.listaPosicional(linha.getString("prazo_codigo_posto")),
+                Consulta.listaPosicional(linha.getString("prazo_codigo_rotina_posto")),
+                Consulta.listaPosicional(linha.getString("prazo_minimo_posto")),
+                Consulta.listaPosicional(linha.getString("prazo_minimo_posto_tipo")),
+                Consulta.listaPosicional(linha.getString("prazo_rotina_posto_tipo")),
+                Consulta.listaPosicional(linha.getString("prazo_rotina_posto_utiliza_rotina")));
     }
 
     private List<String> recipientes(String procedimentoId, String recipientePadrao) {

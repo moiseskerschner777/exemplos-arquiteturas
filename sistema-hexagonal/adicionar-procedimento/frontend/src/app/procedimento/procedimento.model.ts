@@ -49,6 +49,7 @@ export interface ProcedimentoAdicionadoDtoResponse {
   valor: number;
   negociacaoEspecial: boolean;
   entrega: string | null;
+  prazoMinimo: string | null;
   materialId: string | null;
   materialDescricao: string;
   materialComplementoObrigatorio: boolean;

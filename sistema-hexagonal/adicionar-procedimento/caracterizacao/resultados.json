@@ -1,6 +1,7 @@
 [
  {
   "id": "C00",
+  "momento": "2026-11-11T04:04:09",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -9,7 +10,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.289759358",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:09",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -29,6 +31,7 @@
  },
  {
   "id": "C01",
+  "momento": "2026-11-11T04:04:09",
   "status": 422,
   "resposta": {
    "motivo": "NAO_ENCONTRADO",
@@ -44,6 +47,7 @@
  },
  {
   "id": "C02a",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "SEXO_INCOMPATIVEL",
@@ -59,6 +63,7 @@
  },
  {
   "id": "C02b",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "SEXO_INCOMPATIVEL",
@@ -74,6 +79,7 @@
  },
  {
   "id": "C03",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "RESTRITO_NA_UNIDADE",
@@ -89,6 +95,7 @@
  },
  {
   "id": "C04a",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "INATIVO",
@@ -104,6 +111,7 @@
  },
  {
   "id": "C04b",
+  "momento": "2026-11-11T04:04:10",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -112,7 +120,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.484307372",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:10",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -132,6 +141,7 @@
  },
  {
   "id": "C05",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "MATERIAL_DIVERSOS_PENDENTE",
@@ -147,6 +157,7 @@
  },
  {
   "id": "C06",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "CATEGORIA_INCOMPATIVEL",
@@ -162,6 +173,7 @@
  },
  {
   "id": "C07",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "FATURA_FECHADA",
@@ -177,6 +189,7 @@
  },
  {
   "id": "C10a",
+  "momento": "2026-11-11T04:04:10",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -185,7 +198,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.615226051",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:10",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -210,6 +224,7 @@
  },
  {
   "id": "C10b",
+  "momento": "2026-11-11T04:04:10",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -218,7 +233,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.644952246",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:10",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -238,6 +254,7 @@
  },
  {
   "id": "C13",
+  "momento": "2026-11-11T04:04:10",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -246,7 +263,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.673654799",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:10",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -271,6 +289,7 @@
  },
  {
   "id": "C14",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "CULTURA_SEM_ANTIBIOGRAMA",
@@ -286,6 +305,7 @@
  },
  {
   "id": "C15",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "SEM_COBERTURA",
@@ -301,6 +321,7 @@
  },
  {
   "id": "C17",
+  "momento": "2026-11-11T04:04:10",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -309,7 +330,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.758236387",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:10",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -329,6 +351,7 @@
  },
  {
   "id": "C18",
+  "momento": "2026-11-11T04:04:10",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -337,7 +360,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.794547234",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:10",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -357,6 +381,7 @@
  },
  {
   "id": "C19",
+  "momento": "2026-11-11T04:04:10",
   "status": 422,
   "resposta": {
    "motivo": "JA_INCLUIDO",
@@ -372,6 +397,7 @@
  },
  {
   "id": "C21a",
+  "momento": "2026-11-11T04:04:11",
   "status": 422,
   "resposta": {
    "motivo": "SEM_PRECO",
@@ -387,6 +413,7 @@
  },
  {
   "id": "C21b",
+  "momento": "2026-11-11T04:04:11",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -395,7 +422,8 @@
    "fontePagadoraId": 1,
    "valor": 0,
    "negociacaoEspecial": true,
-   "entrega": "2026-11-11T11:53:11.871148368",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -415,6 +443,7 @@
  },
  {
   "id": "C22",
+  "momento": "2026-11-11T04:04:11",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -423,7 +452,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.897769205",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
    "materialId": "00002",
    "materialDescricao": "Sangue",
    "materialComplementoObrigatorio": false,
@@ -443,6 +473,7 @@
  },
  {
   "id": "C25",
+  "momento": "2026-11-11T04:04:11",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -451,7 +482,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.923600534",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
    "materialId": "00003",
    "materialDescricao": "Soro braço esquerdo",
    "materialComplementoObrigatorio": true,
@@ -471,6 +503,7 @@
  },
  {
   "id": "C26",
+  "momento": "2026-11-11T04:04:11",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -479,7 +512,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.951831711",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -504,6 +538,7 @@
  },
  {
   "id": "C27",
+  "momento": "2026-11-11T04:04:11",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -512,7 +547,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:11.987120389",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -537,6 +573,7 @@
  },
  {
   "id": "C28",
+  "momento": "2026-11-11T04:04:11",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -545,7 +582,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:12.014860382",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -574,6 +612,7 @@
  },
  {
   "id": "C30",
+  "momento": "2026-11-11T04:04:11",
   "status": 200,
   "resposta": {
    "procedimentoId": "34",
@@ -582,7 +621,8 @@
    "fontePagadoraId": 1,
    "valor": 50.0,
    "negociacaoEspecial": false,
-   "entrega": "2026-11-11T11:53:12.041943302",
+   "entrega": "2026-11-12T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
    "materialId": "00003",
    "materialDescricao": "Soro",
    "materialComplementoObrigatorio": false,
@@ -598,6 +638,172 @@
    "fraseAutorizacao": null,
    "alertaCadastro": null,
    "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C40",
+  "momento": "2026-11-11T04:04:11",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-14T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C41",
+  "momento": "2026-11-11T04:04:11",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-14T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C42",
+  "momento": "2026-11-11T04:04:11",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-12T05:04:11",
+   "prazoMinimo": "2026-11-11T12:04:11",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C43",
+  "momento": "2026-11-11T04:04:11",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-13T17:00:00",
+   "prazoMinimo": "2026-11-11T12:04:11",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C44",
+  "momento": "2026-11-11T04:04:11",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T12:04:11",
+   "prazoMinimo": "2026-11-11T12:04:11",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C45",
+  "momento": "2026-11-11T04:04:11",
+  "status": 422,
+  "resposta": {
+   "motivo": "ERRO_PRAZO",
+   "codigoCos": "erroPrazo",
+   "retornoCos": 1,
+   "mensagem": "O prazo definido na configuração do procedimento TGO não é válido.\r\nSolicite a correção do prazo deste procedimento para um valor numérico.",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
   },
   "situacao": "passou",
   "diferencas": []

@@ -8,8 +8,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>core</module>
-        <module>adaptador-jdbc-oracle</module>
-        <module>web-servlet</module>
         <module>adaptador-jpa-postgres</module>
         <module>web-spring</module>
     </modules>

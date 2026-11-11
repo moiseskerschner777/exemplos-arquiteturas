@@ -1,4 +1,4 @@
-package sistema.adaptador.jdbc;
+package sistema.adaptador.jpa;
 
 import java.util.UUID;
 import sistema.core.porta.out.GeradorDeIdPortOut;

@@ -24,6 +24,10 @@ Cada linha foi escrita no momento em que o evento aconteceu.
 | Persistência | todos | web-spring no perfil postgres: as respostas da API pelo roteador iguais às do perfil oracle; a próxima movimentação recebeu o id 7, depois das 6 migradas | `curl` no roteador e consulta no PostgreSQL | variável `PERFIL` no `docker-compose.yml` |
 | Persistência | todos | caminho de volta: o perfil oracle sobe e responde, mas a conta aberta e as movimentações feitas depois da troca não estão no Oracle | `curl` no roteador: "conta nao encontrada" e total 4 em vez de 6 | nenhum: voltar exige copiar de volta o que foi gravado no PostgreSQL |
 | Persistência | todos | suíte completa: core 28, contrato JDBC 10, contrato JPA 10, Servlet 14, web-spring 16 no Oracle e 16 no PostgreSQL, 94 testes aprovados | `mvn clean package` | nenhum |
+| Remoção do legado | todos | `adaptador-jdbc-oracle` e `web-servlet` retirados do projeto, junto com o perfil oracle, a `MontagemJdbcOracle` e os serviços oracle e tomcat do docker compose; `RelogioDoSistema` e `GeradorDeIdUuid` movidos para o `adaptador-jpa-postgres` | `mvn clean package` | o roteador manda todas as telas para o Angular; a classe base dos testes passou a ser `PostgresNoContainer` |
+| Remoção do legado | todos | suíte completa: core 28, contrato JPA 10, web-spring 16, 54 testes aprovados | `mvn clean package` | nenhum teste de caso de uso ou de controlador alterado |
+| Remoção do legado | todos | a conferência da migração falhou com a tabela `movimentacao` vazia: no PostgreSQL a soma de uma tabela vazia concatenada dá nulo, no Oracle dá texto vazio | `banco/migrar-dados.sh`: "movimentacao: diferente, Oracle 0\|\|0, PostgreSQL" | `COALESCE` na soma das consultas de conferência |
+| Remoção do legado | todos | dados lidos do Oracle do `sistema-arquitetura-limpa-legado`: 3 contas e 2 movimentações iguais nos dois bancos; extrato, transferência e telas Angular respondendo pelo roteador | `./executar.sh migrar` e `curl` no roteador | `banco/migrar-dados.sh` lê o Oracle pelo docker compose do legado |
 
 ## Etapa da apresentação
 
@@ -49,3 +53,14 @@ Cada linha foi escrita no momento em que o evento aconteceu.
 |---|---|---|---|
 | adaptador-jpa-postgres | 8 | 174 | 161 |
 | banco/migrar-dados.sh | 1 | 49 | 0 |
+
+## Remoção do legado
+
+- o projeto ficou com core, `adaptador-jpa-postgres`, `web-spring`, `frontend` e roteador
+- core igual ao do `sistema-arquitetura-limpa-legado`: `diff -r` com diferença só no nome do projeto pai no `pom.xml`
+- o Oracle fica só no `sistema-arquitetura-limpa-legado`, como origem dos dados da migração
+
+| Módulo retirado | Arquivos | Linhas não vazias |
+|---|---|---|
+| adaptador-jdbc-oracle | 11 | 437 |
+| web-servlet | 21 | 1018 |

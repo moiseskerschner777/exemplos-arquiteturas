@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AbrirContaControllerTest extends OracleNoContainer {
+class AbrirContaControllerTest extends PostgresNoContainer {
 
     @Autowired
     private MockMvc mvc;

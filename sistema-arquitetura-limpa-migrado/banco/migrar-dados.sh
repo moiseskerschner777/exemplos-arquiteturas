@@ -4,10 +4,15 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 ORACLE="sistema/sistema@//localhost:1521/FREEPDB1"
+LEGADO="../sistema-arquitetura-limpa-legado"
+
+oracle() {
+    docker compose --project-directory "$LEGADO" -f "$LEGADO/docker-compose.yml" exec -T oracle sqlplus -s "$ORACLE"
+}
 
 exportar() {
     printf 'SET MARKUP CSV ON QUOTE ON\nSET FEEDBACK OFF\nSET HEADING OFF\nSET PAGESIZE 0\n%s\n' "$1" \
-        | docker compose exec -T oracle sqlplus -s "$ORACLE" | sed '/^$/d'
+        | oracle | sed '/^$/d'
 }
 
 importar() {
@@ -16,7 +21,7 @@ importar() {
 
 consultar_oracle() {
     printf 'SET FEEDBACK OFF\nSET HEADING OFF\nSET PAGESIZE 0\n%s\n' "$1" \
-        | docker compose exec -T oracle sqlplus -s "$ORACLE" | tr -d '[:space:]'
+        | oracle | tr -d '[:space:]'
 }
 
 consultar_postgres() {
@@ -38,14 +43,14 @@ conferir() {
 tabela_conta() {
     echo "migrando conta"
     exportar "SELECT id, titular, TO_CHAR(saldo, 'FM999999999990.00'), situacao FROM conta ORDER BY id;" | importar conta
-    conferir conta "SELECT COUNT(*) || '|' || TO_CHAR(SUM(saldo), 'FM999999999990.00') FROM conta"
+    conferir conta "SELECT COUNT(*) || '|' || TO_CHAR(COALESCE(SUM(saldo), 0), 'FM999999999990.00') FROM conta"
 }
 
 tabela_movimentacao() {
     echo "migrando movimentacao"
     exportar "SELECT id, conta_id, tipo, TO_CHAR(valor, 'FM999999999990.00'), descricao, TO_CHAR(data_hora, 'YYYY-MM-DD HH24:MI:SS.FF6') FROM movimentacao ORDER BY id;" \
         | importar movimentacao
-    conferir movimentacao "SELECT COUNT(*) || '|' || TO_CHAR(SUM(valor), 'FM999999999990.00') || '|' || COUNT(descricao) FROM movimentacao"
+    conferir movimentacao "SELECT COUNT(*) || '|' || TO_CHAR(COALESCE(SUM(valor), 0), 'FM999999999990.00') || '|' || COUNT(descricao) FROM movimentacao"
     docker compose exec -T postgres psql -q -U sistema -d sistema \
         -c "SELECT setval('seq_movimentacao', COALESCE((SELECT MAX(id) FROM movimentacao), 1))" > /dev/null
     echo "seq_movimentacao ajustada"

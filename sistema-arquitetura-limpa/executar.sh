@@ -39,7 +39,7 @@ aplicar_schema() {
 
 subir() {
     compilar
-    docker compose up -d oracle
+    docker compose up -d oracle postgres
     aguardar_oracle
     aplicar_schema
     docker compose up -d --force-recreate tomcat web-spring roteador
@@ -59,17 +59,24 @@ logs() {
     docker compose logs -f "${1:-tomcat}"
 }
 
+migrar() {
+    docker compose stop web-spring
+    banco/migrar-dados.sh "${1:-todas}"
+}
+
 sql() {
     docker compose exec oracle sqlplus "$CONEXAO"
 }
 
 uso() {
-    echo "uso: ./executar.sh [subir|parar|limpar|logs [servico]|sql]"
+    echo "uso: ./executar.sh [subir|parar|limpar|logs [servico]|migrar [tabela]|sql]"
     echo "  subir   compila, testa, sobe o Oracle, o Tomcat, o web-spring e o roteador e cria as tabelas (padrao)"
     echo "  parar   para os containers e mantem os dados"
     echo "  limpar  para os containers e apaga os dados"
     echo "  logs    acompanha os logs do Tomcat, ou do servico informado"
+    echo "  migrar  para o web-spring e copia os dados do Oracle para o PostgreSQL, tabela por tabela"
     echo "  sql     abre o sqlplus no banco do sistema"
+    echo "  PERFIL=postgres DB_URL_WEB_SPRING=jdbc:postgresql://postgres:5432/sistema ./executar.sh subir liga o web-spring ao PostgreSQL"
 }
 
 case "${1:-subir}" in
@@ -77,6 +84,7 @@ case "${1:-subir}" in
     parar) parar ;;
     limpar) limpar ;;
     logs) logs "${2:-tomcat}" ;;
+    migrar) migrar "${2:-todas}" ;;
     sql) sql ;;
     *) uso; exit 1 ;;
 esac

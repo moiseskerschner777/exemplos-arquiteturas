@@ -1,6 +1,6 @@
 # Resultados do sistema com arquitetura limpa, estado migrado
 
-Ponto de partida: cópia do estado legado, tag `limpa-legado`, em `sistema-arquitetura-limpa-legado`.
+Ponto de partida: cópia do `sistema-arquitetura-limpa-legado`.
 
 ## Registro da migração
 
@@ -43,7 +43,7 @@ Cada linha foi escrita no momento em que o evento aconteceu.
 
 ## Etapa da persistência
 
-- core igual ao estado legado e à tag `limpa-apresentacao`: `diff -r` sem diferença
+- core igual ao estado legado e ao fim da etapa da apresentação: `diff -r` sem diferença
 - testes dos casos de uso e dos controladores sem alteração; a suíte de contrato do core é a mesma para Oracle e PostgreSQL
 - `web-spring`: 2 arquivos alterados, a configuração e a classe base dos testes, e 4 novos: `MontagemJpaPostgres`, as propriedades de cada perfil e os dados de teste
 - o gerador de id e o relógio continuam no módulo `adaptador-jdbc-oracle` e são usados também pelo perfil postgres

@@ -7,7 +7,7 @@ Recorte: adicionar um exame simples a um atendimento existente, sub-fluxos 1, 2,
 
 ## Inventário do lado legado
 
-Fonte: `sistema-sem-arquitetura/inventario.mk`, medido por `sistema-sem-arquitetura/medicao/fechamento.py`.
+Fonte: `sistema-legado-intersystem-cos-sem-arquitetura/inventario.mk`, medido por `sistema-legado-intersystem-cos-sem-arquitetura/medicao/fechamento.py`.
 
 | Medida | Valor |
 |---|---|
@@ -42,7 +42,7 @@ Fonte da segunda linha: `medicao/medir.py`.
 
 ## Regras
 
-Fonte: `sistema-sem-arquitetura/regras.mk`.
+Fonte: `sistema-legado-intersystem-cos-sem-arquitetura/regras.mk`.
 
 - 30 regras no recorte, mais o erro inesperado
 - 6 regras com cópia reimplementada em outras classes:
@@ -52,7 +52,7 @@ Fonte: `sistema-sem-arquitetura/regras.mk`.
 
 ## Cenários de caracterização
 
-Fonte: `sistema-sem-arquitetura/caracterizacao/cenarios.mk`.
+Fonte: `sistema-legado-intersystem-cos-sem-arquitetura/caracterizacao/cenarios.mk`.
 
 - 32 cenários, 23 regras cobertas, 7 regras sem dado local para montar um cenário
 - 6 cenários de prazo de entrega, C40 a C45, acrescentados na comparação

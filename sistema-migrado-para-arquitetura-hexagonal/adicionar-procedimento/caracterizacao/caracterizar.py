@@ -9,7 +9,7 @@ import urllib.request
 import psycopg2
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
-COS = os.path.join(RAIZ, "..", "..", "..", "sistema-sem-arquitetura", "caracterizacao")
+COS = os.path.join(RAIZ, "..", "..", "..", "sistema-legado-intersystem-cos-sem-arquitetura", "caracterizacao")
 MOTIVOS = os.path.join(RAIZ, "..", "core", "src", "main", "java", "procedimento", "core", "erro", "MotivoRecusa.java")
 URL = os.environ.get("APP_URL", "http://localhost:8081")
 

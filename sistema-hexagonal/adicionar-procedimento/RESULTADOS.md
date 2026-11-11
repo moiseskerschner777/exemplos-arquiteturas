@@ -98,6 +98,21 @@ Resultado final: 32 cenários, 0 diferenças.
 Os 26 cenários passavam no Java antes da comparação com a entrega errada, porque o esperado dos cenários não tinha a entrega.
 A diferença só apareceu ao comparar a resposta inteira.
 
+## Erros da migração, na ordem em que apareceram
+
+| Erro | Como foi percebido | Causa e decisão |
+|---|---|---|
+| Código medido no IRIS local anterior à versão em desenvolvimento | Comparação do método compilado com o repositório | Medidas refeitas: método de 857 para 882 linhas, fluxo de 82 para 88 métodos |
+| Carga recusada pelo PostgreSQL: hora gravada como 54291 | Erro na carga | Hora no formato interno do IRIS convertida na migração |
+| 25 das 45 tabelas diferentes depois da carga | `banco/conferir.py` | Números como texto e datas no formato interno; conversão pelo tipo da coluna |
+| Índices com o mesmo nome | Erro na criação do esquema | Nomes cortados em 63 caracteres; sufixo no nome |
+| Negociação especial com valor vazio em vez de 0 | 1 cenário fora do esperado no Java | Tradução feita com IA; corrigida |
+| Valores de teste gravados no PostgreSQL | `banco/conferir.py`: 3 tabelas diferentes | Valores restaurados |
+| Data de entrega do resultado do exame ao paciente igual ao prazo mínimo em 14 de 26 cenários | `caracterizacao/comparar.py` | Cálculo do prazo portado; 3 tabelas a mais |
+| Horário de entrega 3 horas adiantado (14:51 no Java, 11:53 depois do fuso) | A mesma comparação | Fuso America/Sao_Paulo no container |
+| Cenário do horário limite recusado pelo IRIS, SQLCODE -105 | Ao montar o cenário | Coluna de hora guarda segundos; cenário usa o número |
+| Prazo gravado como texto vazio dá erro no legado | Resultado do legado diferente do esperado | Core diferencia nulo e texto vazio |
+
 ## Código do fluxo migrado
 
 Fonte: `medicao/medir.py`. Linhas não vazias.

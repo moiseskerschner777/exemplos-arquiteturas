@@ -26,8 +26,8 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - ./rest/target/quarkus-app:/app:ro
-    command: ["java", "-jar", "/app/quarkus-run.jar"]
+      - ./rest/target/aplicacao.jar:/app/aplicacao.jar:ro
+    command: ["java", "-jar", "/app/aplicacao.jar"]
 
 volumes:
   dados-postgres:

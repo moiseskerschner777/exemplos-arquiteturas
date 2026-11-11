@@ -10,6 +10,11 @@ IRIS="${IRIS_CONTAINER:-lis-iris}"
 compilar() {
     echo "compilando"
     mvn -q package -DskipTests
+    echo "compilando o frontend"
+    if [ ! -d frontend/node_modules ]; then
+        (cd frontend && npm ci)
+    fi
+    (cd frontend && npx ng build)
 }
 
 verificar_iris() {
@@ -40,7 +45,9 @@ subir() {
     docker compose up -d --wait postgres
     docker compose up -d --force-recreate app
     aguardar_app
-    echo "sistema em http://localhost:${PORTA}"
+    docker compose up -d --force-recreate frontend
+    echo "aplicacao em http://localhost:${PORTA}"
+    echo "frontend em http://localhost:4201"
 }
 
 parar() {

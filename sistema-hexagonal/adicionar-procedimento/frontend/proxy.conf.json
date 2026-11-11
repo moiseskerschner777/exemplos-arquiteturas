@@ -1,0 +1,4 @@
+{
+  "/attendances": { "target": "http://localhost:8081", "secure": false },
+  "/health": { "target": "http://localhost:8081", "secure": false }
+}

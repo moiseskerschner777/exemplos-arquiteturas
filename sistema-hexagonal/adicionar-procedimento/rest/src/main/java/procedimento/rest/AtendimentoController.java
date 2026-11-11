@@ -21,7 +21,8 @@ public class AtendimentoController {
     }
 
     @PostMapping
-    public ProcedimentoAdicionadoDto adicionar(@PathVariable("attendanceId") long atendimentoId, @RequestBody AdicionarProcedimentoDtoRequest pedido) {
+    public ProcedimentoAdicionadoDto adicionar(@PathVariable("attendanceId") long atendimentoId,
+                                               @RequestBody AdicionarProcedimentoDtoRequest pedido) {
         return adicionarProcedimento.executar(new AdicionarProcedimentoDto(
                 atendimentoId,
                 pedido.mnemonico(),

@@ -1,0 +1,137 @@
+<main class="pagina">
+  <h1>Adicionar procedimento ao atendimento</h1>
+
+  <p-card>
+    <form class="formulario" (ngSubmit)="adicionar()">
+      <label>
+        <span>Atendimento</span>
+        <p-inputnumber name="atendimentoId" [(ngModel)]="atendimentoId" [useGrouping]="false" />
+      </label>
+      <label>
+        <span>Mnemônico</span>
+        <input pInputText name="mnemonico" [(ngModel)]="mnemonico" required autocomplete="off" />
+      </label>
+      <label>
+        <span>Sexo do paciente</span>
+        <p-select name="sexoPaciente" [(ngModel)]="sexoPaciente" [options]="sexos" optionLabel="rotulo" optionValue="valor" />
+      </label>
+      <label>
+        <span>Fonte pagadora</span>
+        <p-inputnumber name="fontePagadoraId" [(ngModel)]="fontePagadoraId" [useGrouping]="false" />
+      </label>
+      <label>
+        <span>Material</span>
+        <input pInputText name="materialId" [(ngModel)]="materialId" autocomplete="off" />
+      </label>
+      <label>
+        <span>Descrição do material</span>
+        <input pInputText name="materialDescricao" [(ngModel)]="materialDescricao" autocomplete="off" />
+      </label>
+      <label>
+        <span>Complemento do material</span>
+        <input pInputText name="complementoMaterial" [(ngModel)]="complementoMaterial" autocomplete="off" />
+      </label>
+      <label class="opcao">
+        <p-checkbox name="ignorarValidacoes" [(ngModel)]="ignorarValidacoes" [binary]="true" inputId="ignorarValidacoes" />
+        <span>Ignorar validações do atendimento</span>
+      </label>
+      <div class="acoes">
+        <p-button type="submit" label="Adicionar" icon="pi pi-plus" [loading]="enviando()" [disabled]="!mnemonico.trim()" />
+      </div>
+    </form>
+  </p-card>
+
+  @if (falha(); as mensagem) {
+    <p-message severity="error" [text]="mensagem" />
+  }
+
+  @if (recusa(); as recusa) {
+    <p-message severity="error" data-teste="recusa">
+      <div class="recusa">
+        <strong>{{ mensagemDoMotivo(recusa.motivo) }}</strong>
+        @if (detalheDoServidor(recusa.motivo, recusa.mensagem); as detalhe) {
+          <pre>{{ detalhe }}</pre>
+        }
+        <small>motivo {{ recusa.motivo }}, código do sistema legado {{ recusa.codigoCos || '-' }}</small>
+      </div>
+    </p-message>
+  }
+
+  @if (item(); as item) {
+    <p-card [header]="item.mnemonico + ' - ' + item.descricao" data-teste="item">
+      <dl class="item">
+        <dt>Valor</dt>
+        <dd>
+          {{ item.valor | number: '1.2-2' }}
+          @if (item.negociacaoEspecial) {
+            <p-tag severity="info" value="negociação especial" />
+          }
+        </dd>
+        <dt>Entrega</dt>
+        <dd>{{ item.entrega | date: 'dd/MM/yyyy HH:mm' }}</dd>
+        <dt>Material</dt>
+        <dd>{{ item.materialId }} - {{ item.materialDescricao }}</dd>
+        <dt>Setor</dt>
+        <dd>{{ item.setorId || '-' }}</dd>
+        <dt>Recipientes</dt>
+        <dd>{{ item.recipientes.join(', ') || '-' }}</dd>
+        @if (item.recipientesAmostraEncaminhada.length) {
+          <dt>Amostra encaminhada</dt>
+          <dd>{{ item.recipientesAmostraEncaminhada.join(', ') }}</dd>
+        }
+        @if (item.tsaId) {
+          <dt>Antibiograma</dt>
+          <dd>{{ item.tsaId }}</dd>
+        }
+        @if (item.fraseAutorizacao) {
+          <dt>Autorização</dt>
+          <dd><pre>{{ item.fraseAutorizacao.trim() }}</pre></dd>
+        }
+        @if (item.alertaCadastro) {
+          <dt>Alerta de cadastro</dt>
+          <dd><pre>{{ item.alertaCadastro }}</pre></dd>
+        }
+      </dl>
+
+      @for (pendencia of item.pendencias; track $index) {
+        <p-message [severity]="severidade(pendencia)" styleClass="pendencia">
+          <div class="recusa">
+            <strong>{{ mensagemDoMotivo(pendencia.motivo) }}</strong>
+            @if (detalheDoServidor(pendencia.motivo, pendencia.mensagem); as detalhe) {
+              <span>{{ detalhe }}</span>
+            }
+          </div>
+        </p-message>
+      }
+
+      @if (pedeConfirmacaoDeAgenda()) {
+        <div class="acoes">
+          <p-button label="Confirmar inclusão" icon="pi pi-check" severity="secondary" (onClick)="confirmarAgenda()" />
+        </div>
+      }
+    </p-card>
+  }
+
+  <p-dialog header="Material do procedimento" [modal]="true" [visible]="materialDiversos() !== null" [closable]="false" [style]="{ width: '28rem' }">
+    @if (materialDiversos(); as material) {
+      <div class="formulario">
+        <label>
+          <span>Material</span>
+          <p-select [(ngModel)]="material.materialId" [options]="material.materiaisPermitidos" appendTo="body" />
+        </label>
+        <label>
+          <span>Descrição do material</span>
+          <input pInputText [(ngModel)]="material.descricao" autocomplete="off" />
+        </label>
+        <label>
+          <span>Complemento do material</span>
+          <input pInputText [(ngModel)]="material.complemento" autocomplete="off" />
+        </label>
+      </div>
+    }
+    <ng-template #footer>
+      <p-button label="Cancelar" severity="secondary" [text]="true" (onClick)="cancelarMaterial()" />
+      <p-button label="Reenviar" icon="pi pi-send" (onClick)="informarMaterial()" />
+    </ng-template>
+  </p-dialog>
+</main>

@@ -1,0 +1,131 @@
+{
+ "diferencas": [
+  {
+   "cenario": "C00",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C04b",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C10a",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C10b",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C13",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C17",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C18",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C21b",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C22",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C25",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C26",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C27",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C28",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  },
+  {
+   "cenario": "C30",
+   "campo": "Entrega",
+   "cos": "12/11/2026 - 17:00",
+   "java": "11/11/2026 - 11:53"
+  }
+ ],
+ "camposDoCosSemCorrespondente": [
+  "Antecipacao",
+  "Categoria",
+  "CompostoExame",
+  "ConfirmarFaturamentoNaCobrancaVariavel",
+  "ConfirmouInclusaoAgendamento",
+  "ConvenioDisplay",
+  "DataAlterada",
+  "DataEntregaLogical",
+  "DataEntregaMinimaSetor",
+  "DataEntregaSetor",
+  "DataSetorAlterada",
+  "DescricaoAlertaCadastro",
+  "Emergencia",
+  "ExameCobrancaVariavel",
+  "ExameCobrancaVariavelSalvarAlteracao",
+  "ExameRecipientes",
+  "ExameTemCobrancaVariavel",
+  "HoraCadastro",
+  "HoraEntregaLogical",
+  "IncluirTsaAuto",
+  "JsonExameCobrancaMateriais",
+  "JsonExameCobrancaProcedimentos",
+  "Material",
+  "MaterialComplemento",
+  "MnemonicoExame",
+  "MotivoNaoCobertura",
+  "Pendente",
+  "PerfilExame",
+  "PrazoMinimo",
+  "PrazoMinimoDisplay",
+  "PrazoMinimoHora",
+  "PrazoMinimoHoraDisplay",
+  "ProcedimentoComRestricao",
+  "RegraInclusaoExclusao",
+  "SemLaudo",
+  "SexoProcedimento",
+  "TsaDescricao",
+  "TsaMnemonico",
+  "ValorBalcao",
+  "ValorDisplay",
+  "ValorFatura"
+ ]
+}

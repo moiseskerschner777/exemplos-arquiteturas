@@ -1,11 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { AdicionarProcedimentoComponent } from './procedimento/adicionar-procedimento.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [AdicionarProcedimentoComponent],
+  template: '<app-adicionar-procedimento />'
 })
-export class App {
-  protected readonly title = signal('frontend');
-}
+export class App {}

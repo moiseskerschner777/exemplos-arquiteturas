@@ -25,7 +25,6 @@ create table procedimento (
     descricao_laudo varchar(200),
     disponivel_web integer not null,
     grade_armazenamento varchar(50),
-    codigo varchar(50) not null,
     id_lis_antigo varchar(50),
     impressao_grupo bigint,
     impressao_ordem integer,
@@ -85,20 +84,19 @@ create table procedimento (
     versao_check varchar(50),
     volume_total double precision
 );
-create index procedimento_idx_descricao on procedimento (upper(descricao));
-create index procedimento_idx_disponivel_web on procedimento (disponivel_web);
-create unique index procedimento_idx_id on procedimento (upper(codigo));
-create unique index procedimento_idx_id_lis_antigo on procedimento (upper(id_lis_antigo));
-create unique index procedimento_idx_mnemonico on procedimento (upper(mnemonico));
-create index procedimento_idx_perfil_tipo on procedimento (perfil_tipo);
-create index procedimento_idx_setor_complementar on procedimento (upper(setor_complementar));
-create index procedimento_idx_setor_exclusivo on procedimento (upper(setor_exclusivo));
-create index procedimento_idx_setor_padrao on procedimento (upper(setor_padrao));
-create index procedimento_idx_sexo on procedimento (upper(sexo));
-create index procedimento_idx_status on procedimento (status);
-create index procedimento_idx_tipo_exame on procedimento (tipo_exame);
-create index procedimento_idx_tsa on procedimento (upper(tsa));
-create index procedimento_idx_utilizado_microbiologia on procedimento (utilizado_microbiologia);
+create index procedimento_descricao_idx on procedimento (upper(descricao));
+create index procedimento_disponivel_web_idx on procedimento (disponivel_web);
+create unique index procedimento_id_lis_antigo_idx on procedimento (upper(id_lis_antigo));
+create unique index procedimento_mnemonico_idx on procedimento (upper(mnemonico));
+create index procedimento_perfil_tipo_idx on procedimento (perfil_tipo);
+create index procedimento_setor_complementar_idx on procedimento (upper(setor_complementar));
+create index procedimento_setor_exclusivo_idx on procedimento (upper(setor_exclusivo));
+create index procedimento_setor_padrao_idx on procedimento (upper(setor_padrao));
+create index procedimento_sexo_idx on procedimento (upper(sexo));
+create index procedimento_status_idx on procedimento (status);
+create index procedimento_tipo_exame_idx on procedimento (tipo_exame);
+create index procedimento_tsa_idx on procedimento (upper(tsa));
+create index procedimento_utilizado_microbiologia_idx on procedimento (utilizado_microbiologia);
 
 create table procedimento_recipiente (
     tbl_exame varchar(50) not null,
@@ -106,7 +104,7 @@ create table procedimento_recipiente (
     recipiente text,
     element_key varchar(50) not null
 );
-create unique index procedimento_recipiente_idx_id on procedimento_recipiente (upper(tbl_exame), upper(element_key));
+create unique index procedimento_recipiente_tbl_exame_element_key_idx on procedimento_recipiente (upper(tbl_exame), upper(element_key));
 
 create table procedimento_material_permitido (
     id bigint primary key,
@@ -114,9 +112,8 @@ create table procedimento_material_permitido (
     procedimento_id varchar(50) not null,
     versao_check varchar(50)
 );
-create unique index procedimento_material_permitido_idkey on procedimento_material_permitido (id);
-create index procedimento_material_permitido_idx_procedimento on procedimento_material_permitido (upper(procedimento_id));
-create unique index procedimento_material_permitido_idx_procedimento_material on procedimento_material_permitido (upper(procedimento_id), upper(material_id));
+create index procedimento_material_permitido_procedimento_id_idx on procedimento_material_permitido (upper(procedimento_id));
+create unique index procedimento_material_permitido_procedimento_id_material_id_idx on procedimento_material_permitido (upper(procedimento_id), upper(material_id));
 
 create table status_procedimento (
     id varchar(50) primary key,
@@ -126,10 +123,8 @@ create table status_procedimento (
     descricao_web varchar(50),
     frase_observacao_web text,
     grupo text not null,
-    codigo varchar(50) not null,
     versao_check varchar(50)
 );
-create unique index status_procedimento_idx_id on status_procedimento (upper(codigo));
 
 create table material (
     id varchar(50) primary key,
@@ -139,15 +134,13 @@ create table material (
     equipamento_chave text,
     equipamento_material text,
     grupo varchar(1),
-    codigo varchar(50) not null,
     id_lis_antigo varchar(50),
     material_diversos integer,
     status boolean,
     topografia varchar(50),
     versao_check varchar(50)
 );
-create unique index material_idx_id on material (upper(codigo));
-create unique index material_idx_id_lis_antigo on material (upper(id_lis_antigo));
+create unique index material_id_lis_antigo_idx on material (upper(id_lis_antigo));
 
 create table recipiente (
     id bigint primary key,
@@ -182,12 +175,11 @@ create table recipiente (
     versao_check varchar(50),
     volume_util double precision
 );
-create unique index recipiente_idkey on recipiente (id);
-create unique index recipiente_idx_apelido on recipiente (upper(apelido));
-create unique index recipiente_idx_id_lis_antigo on recipiente (upper(id_lis_antigo));
-create index recipiente_idx_prioridade_coleta on recipiente (prioridade_coleta);
-create index recipiente_idx_recipiente_alternativo on recipiente (recipiente_alternativo_id);
-create index recipiente_idx_tipo_recipiente on recipiente (tipo_recipiente);
+create unique index recipiente_apelido_idx on recipiente (upper(apelido));
+create unique index recipiente_id_lis_antigo_idx on recipiente (upper(id_lis_antigo));
+create index recipiente_prioridade_coleta_idx on recipiente (prioridade_coleta);
+create index recipiente_recipiente_alternativo_id_idx on recipiente (recipiente_alternativo_id);
+create index recipiente_tipo_recipiente_idx on recipiente (tipo_recipiente);
 
 create table atendimento (
     id bigint primary key,
@@ -231,31 +223,29 @@ create table atendimento (
     tipo_atendimento bigint,
     versao_check varchar(50)
 );
-create index atendimento_$arq_ordem_servico on atendimento (id);
-create unique index atendimento_idkey on atendimento (id);
-create index atendimento_idx_agendamento on atendimento (agendamento);
-create index atendimento_idx_animal on atendimento (animal);
-create index atendimento_idx_categoria on atendimento (categoria);
-create unique index atendimento_idx_codigo_os on atendimento (upper(codigo_os));
-create index atendimento_idx_data on atendimento (data);
-create index atendimento_idx_disponivel_web on atendimento (disponivel_web);
-create unique index atendimento_idx_integracao_pedido on atendimento (upper(integracao), upper(nro_identificacao_os_lis_origem));
-create index atendimento_idx_last_modified on atendimento (last_modified);
-create index atendimento_idx_lote_caixa on atendimento (upper(lote_caixa));
-create index atendimento_idx_lote_fechamento on atendimento (lote_fechamento);
-create index atendimento_idx_nro_identificacao_os_lis_origem on atendimento (upper(nro_identificacao_os_lis_origem));
-create index atendimento_idx_orcamento on atendimento (orcamento);
-create index atendimento_idx_os_restrita on atendimento (os_restrita);
-create index atendimento_idx_os_status on atendimento (os_status);
-create index atendimento_idx_paciente on atendimento (paciente);
-create unique index atendimento_idx_pedido_lis on atendimento (upper(pedido_lis));
-create index atendimento_idx_posto on atendimento (posto);
-create index atendimento_idx_proprietario on atendimento (proprietario);
-create index atendimento_idx_recepcionista on atendimento (recepcionista);
-create index atendimento_idx_segmento on atendimento (segmento);
-create index atendimento_idx_senha_atendimento on atendimento (upper(senha_atendimento));
-create index atendimento_idx_sequencial on atendimento (sequencial);
-create index atendimento_idx_tipo_atendimento on atendimento (tipo_atendimento);
+create index atendimento_agendamento_idx on atendimento (agendamento);
+create index atendimento_animal_idx on atendimento (animal);
+create index atendimento_categoria_idx on atendimento (categoria);
+create unique index atendimento_codigo_os_idx on atendimento (upper(codigo_os));
+create index atendimento_data_idx on atendimento (data);
+create index atendimento_disponivel_web_idx on atendimento (disponivel_web);
+create unique index atendimento_integracao_nro_identificacao_os_lis_origem_idx on atendimento (upper(integracao), upper(nro_identificacao_os_lis_origem));
+create index atendimento_last_modified_idx on atendimento (last_modified);
+create index atendimento_lote_caixa_idx on atendimento (upper(lote_caixa));
+create index atendimento_lote_fechamento_idx on atendimento (lote_fechamento);
+create index atendimento_nro_identificacao_os_lis_origem_idx on atendimento (upper(nro_identificacao_os_lis_origem));
+create index atendimento_orcamento_idx on atendimento (orcamento);
+create index atendimento_os_restrita_idx on atendimento (os_restrita);
+create index atendimento_os_status_idx on atendimento (os_status);
+create index atendimento_paciente_idx on atendimento (paciente);
+create unique index atendimento_pedido_lis_idx on atendimento (upper(pedido_lis));
+create index atendimento_posto_idx on atendimento (posto);
+create index atendimento_proprietario_idx on atendimento (proprietario);
+create index atendimento_recepcionista_idx on atendimento (recepcionista);
+create index atendimento_segmento_idx on atendimento (segmento);
+create index atendimento_senha_atendimento_idx on atendimento (upper(senha_atendimento));
+create index atendimento_sequencial_idx on atendimento (sequencial);
+create index atendimento_tipo_atendimento_idx on atendimento (tipo_atendimento);
 
 create table atendimento_procedimento (
     id bigint primary key,
@@ -287,36 +277,34 @@ create table atendimento_procedimento (
     template_laudo_procedimento_id bigint,
     versao_check varchar(50)
 );
-create index atendimento_procedimento_$tbl_os_procedimento on atendimento_procedimento (id);
-create unique index atendimento_procedimento_idkey on atendimento_procedimento (id);
-create index atendimento_procedimento_idx_assinatura_data on atendimento_procedimento (assinatura_data);
-create index atendimento_procedimento_idx_assinatura_usuario_id on atendimento_procedimento (assinatura_usuario_id);
-create index atendimento_procedimento_idx_data_hora_liberacao on atendimento_procedimento (data_hora_liberacao);
-create index atendimento_procedimento_idx_data_os on atendimento_procedimento (data_os);
-create index atendimento_procedimento_idx_data_promessa on atendimento_procedimento (data_promessa);
-create index atendimento_procedimento_idx_data_promessa_externa on atendimento_procedimento (data_promessa_externa);
-create index atendimento_procedimento_idx_exportado on atendimento_procedimento (exportado);
-create index atendimento_procedimento_idx_fonte_pagadora on atendimento_procedimento (fonte_pagadora_id);
-create index atendimento_procedimento_idx_hora_promessa on atendimento_procedimento (hora_promessa);
-create index atendimento_procedimento_idx_hora_promessa_externa on atendimento_procedimento (hora_promessa_externa);
-create index atendimento_procedimento_idx_last_modified on atendimento_procedimento (last_modified);
-create index atendimento_procedimento_idx_laudador1_id on atendimento_procedimento (laudador1_id);
-create index atendimento_procedimento_idx_mascara on atendimento_procedimento (mascara);
-create index atendimento_procedimento_idx_notificacao_compulsoria on atendimento_procedimento (notificacao_compulsoria);
-create index atendimento_procedimento_idx_os on atendimento_procedimento (os);
-create index atendimento_procedimento_idx_os_perfil on atendimento_procedimento (os, upper(perfil));
-create unique index atendimento_procedimento_idx_os_procedimento on atendimento_procedimento (os, upper(procedimento));
-create index atendimento_procedimento_idx_os_status_proc_font on atendimento_procedimento (os, upper(status), upper(procedimento), fonte_pagadora_id);
-create index atendimento_procedimento_idx_perfil on atendimento_procedimento (upper(perfil));
-create index atendimento_procedimento_idx_prioridade on atendimento_procedimento (upper(prioridade));
-create index atendimento_procedimento_idx_procedimento on atendimento_procedimento (upper(procedimento));
-create index atendimento_procedimento_idx_setor on atendimento_procedimento (upper(setor));
-create index atendimento_procedimento_idx_status on atendimento_procedimento (upper(status));
-create index atendimento_procedimento_idx_status_font_data_os_proc_os on atendimento_procedimento (upper(status), fonte_pagadora_id, data_os, upper(procedimento), os);
-create index atendimento_procedimento_idx_status_os on atendimento_procedimento (upper(status), os);
-create index atendimento_procedimento_idx_status_setor_os on atendimento_procedimento (upper(status), upper(setor), os);
-create index atendimento_procedimento_idx_status_setor_procedimento on atendimento_procedimento (upper(status), upper(setor), upper(procedimento));
-create index atendimento_procedimento_idx_template_laudo_procedimento_id on atendimento_procedimento (template_laudo_procedimento_id);
+create index atendimento_procedimento_assinatura_data_idx on atendimento_procedimento (assinatura_data);
+create index atendimento_procedimento_assinatura_usuario_id_idx on atendimento_procedimento (assinatura_usuario_id);
+create index atendimento_procedimento_data_hora_liberacao_idx on atendimento_procedimento (data_hora_liberacao);
+create index atendimento_procedimento_data_os_idx on atendimento_procedimento (data_os);
+create index atendimento_procedimento_data_promessa_idx on atendimento_procedimento (data_promessa);
+create index atendimento_procedimento_data_promessa_externa_idx on atendimento_procedimento (data_promessa_externa);
+create index atendimento_procedimento_exportado_idx on atendimento_procedimento (exportado);
+create index atendimento_procedimento_fonte_pagadora_id_idx on atendimento_procedimento (fonte_pagadora_id);
+create index atendimento_procedimento_hora_promessa_idx on atendimento_procedimento (hora_promessa);
+create index atendimento_procedimento_hora_promessa_externa_idx on atendimento_procedimento (hora_promessa_externa);
+create index atendimento_procedimento_last_modified_idx on atendimento_procedimento (last_modified);
+create index atendimento_procedimento_laudador1_id_idx on atendimento_procedimento (laudador1_id);
+create index atendimento_procedimento_mascara_idx on atendimento_procedimento (mascara);
+create index atendimento_procedimento_notificacao_compulsoria_idx on atendimento_procedimento (notificacao_compulsoria);
+create index atendimento_procedimento_os_idx on atendimento_procedimento (os);
+create index atendimento_procedimento_os_perfil_idx on atendimento_procedimento (os, upper(perfil));
+create unique index atendimento_procedimento_os_procedimento_idx on atendimento_procedimento (os, upper(procedimento));
+create index atendimento_procedimento_os_status_procedimento_font_236bb6_idx on atendimento_procedimento (os, upper(status), upper(procedimento), fonte_pagadora_id);
+create index atendimento_procedimento_perfil_idx on atendimento_procedimento (upper(perfil));
+create index atendimento_procedimento_prioridade_idx on atendimento_procedimento (upper(prioridade));
+create index atendimento_procedimento_procedimento_idx on atendimento_procedimento (upper(procedimento));
+create index atendimento_procedimento_setor_idx on atendimento_procedimento (upper(setor));
+create index atendimento_procedimento_status_idx on atendimento_procedimento (upper(status));
+create index atendimento_procedimento_status_fonte_pagadora_id_da_831789_idx on atendimento_procedimento (upper(status), fonte_pagadora_id, data_os, upper(procedimento), os);
+create index atendimento_procedimento_status_os_idx on atendimento_procedimento (upper(status), os);
+create index atendimento_procedimento_status_setor_os_idx on atendimento_procedimento (upper(status), upper(setor), os);
+create index atendimento_procedimento_status_setor_procedimento_idx on atendimento_procedimento (upper(status), upper(setor), upper(procedimento));
+create index atendimento_procedimento_template_laudo_procedimento_id_idx on atendimento_procedimento (template_laudo_procedimento_id);
 
 create table atendimento_cobranca (
     id bigint primary key,
@@ -353,29 +341,27 @@ create table atendimento_cobranca (
     valor_bruto_fatura_sem_percentual_cobranca double precision,
     versao_check varchar(50)
 );
-create index atendimento_cobranca_$tbl_os_cobranca on atendimento_cobranca (id);
-create unique index atendimento_cobranca_idkey on atendimento_cobranca (id);
-create index atendimento_cobranca_idx_cobranca_variavel on atendimento_cobranca (cobranca_variavel);
-create index atendimento_cobranca_idx_composto on atendimento_cobranca (upper(composto));
-create index atendimento_cobranca_idx_data_conciliacao on atendimento_cobranca (data_conciliacao);
-create index atendimento_cobranca_idx_data_os on atendimento_cobranca (data_os);
-create index atendimento_cobranca_idx_fatura on atendimento_cobranca (upper(fatura));
-create index atendimento_cobranca_idx_fonte_pagadora on atendimento_cobranca (fonte_pagadora);
-create index atendimento_cobranca_idx_fonte_pagadora_data_os on atendimento_cobranca (fonte_pagadora, data_os);
-create index atendimento_cobranca_idx_fonte_pagadora_fatura_data_os on atendimento_cobranca (fonte_pagadora, upper(fatura), data_os);
-create index atendimento_cobranca_idx_guia on atendimento_cobranca (guia);
-create index atendimento_cobranca_idx_guia_outras_despesas on atendimento_cobranca (guia_outras_despesas);
-create index atendimento_cobranca_idx_last_modified on atendimento_cobranca (last_modified);
-create index atendimento_cobranca_idx_negociacao_especial on atendimento_cobranca (negociacao_especial);
-create index atendimento_cobranca_idx_os on atendimento_cobranca (os);
-create index atendimento_cobranca_idx_os_proc_fonte_pagadora on atendimento_cobranca (fonte_pagadora, os, upper(procedimento));
-create index atendimento_cobranca_idx_os_procedimento_id on atendimento_cobranca (os_procedimento_id);
-create index atendimento_cobranca_idx_proc_os on atendimento_cobranca (os, upper(procedimento));
-create index atendimento_cobranca_idx_procedimento on atendimento_cobranca (upper(procedimento));
-create index atendimento_cobranca_idx_procedimento_cobranca_variavel on atendimento_cobranca (upper(procedimento_cobranca_variavel));
-create index atendimento_cobranca_idx_status_conciliacao on atendimento_cobranca (upper(status_conciliacao));
-create index atendimento_cobranca_idx_tipo_cobranca on atendimento_cobranca (tipo_cobranca);
-create index atendimento_cobranca_idx_vacina on atendimento_cobranca (vacina_id);
+create index atendimento_cobranca_cobranca_variavel_idx on atendimento_cobranca (cobranca_variavel);
+create index atendimento_cobranca_composto_idx on atendimento_cobranca (upper(composto));
+create index atendimento_cobranca_data_conciliacao_idx on atendimento_cobranca (data_conciliacao);
+create index atendimento_cobranca_data_os_idx on atendimento_cobranca (data_os);
+create index atendimento_cobranca_fatura_idx on atendimento_cobranca (upper(fatura));
+create index atendimento_cobranca_fonte_pagadora_idx on atendimento_cobranca (fonte_pagadora);
+create index atendimento_cobranca_fonte_pagadora_data_os_idx on atendimento_cobranca (fonte_pagadora, data_os);
+create index atendimento_cobranca_fonte_pagadora_fatura_data_os_idx on atendimento_cobranca (fonte_pagadora, upper(fatura), data_os);
+create index atendimento_cobranca_guia_idx on atendimento_cobranca (guia);
+create index atendimento_cobranca_guia_outras_despesas_idx on atendimento_cobranca (guia_outras_despesas);
+create index atendimento_cobranca_last_modified_idx on atendimento_cobranca (last_modified);
+create index atendimento_cobranca_negociacao_especial_idx on atendimento_cobranca (negociacao_especial);
+create index atendimento_cobranca_os_idx on atendimento_cobranca (os);
+create index atendimento_cobranca_fonte_pagadora_os_procedimento_idx on atendimento_cobranca (fonte_pagadora, os, upper(procedimento));
+create index atendimento_cobranca_os_procedimento_id_idx on atendimento_cobranca (os_procedimento_id);
+create index atendimento_cobranca_os_procedimento_idx on atendimento_cobranca (os, upper(procedimento));
+create index atendimento_cobranca_procedimento_idx on atendimento_cobranca (upper(procedimento));
+create index atendimento_cobranca_procedimento_cobranca_variavel_idx on atendimento_cobranca (upper(procedimento_cobranca_variavel));
+create index atendimento_cobranca_status_conciliacao_idx on atendimento_cobranca (upper(status_conciliacao));
+create index atendimento_cobranca_tipo_cobranca_idx on atendimento_cobranca (tipo_cobranca);
+create index atendimento_cobranca_vacina_id_idx on atendimento_cobranca (vacina_id);
 
 create table atendimento_dado_cadastral (
     id bigint primary key,
@@ -386,13 +372,11 @@ create table atendimento_dado_cadastral (
     resposta text,
     versao_check varchar(50)
 );
-create index atendimento_dado_cadastral_$tbl_os_dado_cadastral on atendimento_dado_cadastral (id);
-create unique index atendimento_dado_cadastral_idkey on atendimento_dado_cadastral (id);
-create index atendimento_dado_cadastral_idx_dado_cadastral on atendimento_dado_cadastral (dado_cadastral);
-create index atendimento_dado_cadastral_idx_fonte_pagadora on atendimento_dado_cadastral (fonte_pagadora);
-create index atendimento_dado_cadastral_idx_os on atendimento_dado_cadastral (os);
-create unique index atendimento_dado_cadastral_idx_os_dado_cadastral on atendimento_dado_cadastral (os, fonte_pagadora, dado_cadastral);
-create index atendimento_dado_cadastral_idx_resposta on atendimento_dado_cadastral (upper(resposta));
+create index atendimento_dado_cadastral_dado_cadastral_idx on atendimento_dado_cadastral (dado_cadastral);
+create index atendimento_dado_cadastral_fonte_pagadora_idx on atendimento_dado_cadastral (fonte_pagadora);
+create index atendimento_dado_cadastral_os_idx on atendimento_dado_cadastral (os);
+create unique index atendimento_dado_cadastral_os_fonte_pagadora_dado_cadastral_idx on atendimento_dado_cadastral (os, fonte_pagadora, dado_cadastral);
+create index atendimento_dado_cadastral_resposta_idx on atendimento_dado_cadastral (upper(resposta));
 
 create table paciente (
     id bigint primary key,
@@ -421,14 +405,13 @@ create table paciente (
     ultima_os varchar(50) not null,
     versao_check varchar(50)
 );
-create unique index paciente_idkey on paciente (id);
-create unique index paciente_idx_pessoa_fisica on paciente (pessoa_fisica);
-create unique index paciente_idx_id_lis_antigo on paciente (upper(id_lis_antigo));
-create index paciente_idx_id_paciente_lis_origem on paciente (upper(id_paciente_lis_origem));
-create index paciente_idx_integracao on paciente (integracao);
-create unique index paciente_idx_integracao_paciente on paciente (integracao, upper(id_paciente_lis_origem));
-create index paciente_idx_last_modified on paciente (last_modified);
-create index paciente_idx_responsavel on paciente (responsavel);
+create unique index paciente_pessoa_fisica_idx on paciente (pessoa_fisica);
+create unique index paciente_id_lis_antigo_idx on paciente (upper(id_lis_antigo));
+create index paciente_id_paciente_lis_origem_idx on paciente (upper(id_paciente_lis_origem));
+create index paciente_integracao_idx on paciente (integracao);
+create unique index paciente_integracao_id_paciente_lis_origem_idx on paciente (integracao, upper(id_paciente_lis_origem));
+create index paciente_last_modified_idx on paciente (last_modified);
+create index paciente_responsavel_idx on paciente (responsavel);
 
 create table animal (
     id bigint primary key,
@@ -447,12 +430,11 @@ create table animal (
     status varchar(50) not null,
     versao_check varchar(50)
 );
-create unique index animal_idkey on animal (id);
-create unique index animal_idx_id_lis_antigo on animal (upper(id_lis_antigo));
-create index animal_idx_integracao on animal (integracao);
-create index animal_idx_nome on animal (upper(nome));
-create index animal_idx_proprietario on animal (proprietario);
-create index animal_idx_status on animal (upper(status));
+create unique index animal_id_lis_antigo_idx on animal (upper(id_lis_antigo));
+create index animal_integracao_idx on animal (integracao);
+create index animal_nome_idx on animal (upper(nome));
+create index animal_proprietario_idx on animal (proprietario);
+create index animal_status_idx on animal (upper(status));
 
 create table fatura (
     id varchar(50) primary key,
@@ -469,7 +451,6 @@ create table fatura (
     data_vencimento date,
     desconto text,
     desconto_id text,
-    codigo varchar(50) not null,
     last_modified timestamp,
     log_dados_gerais text,
     log_data text,
@@ -497,19 +478,18 @@ create table fatura (
     valor_total double precision,
     versao_check varchar(50)
 );
-create index fatura_idx_animal_id on fatura (animal_id);
-create index fatura_idx_convenio on fatura (convenio);
-create index fatura_idx_convenio_situacao on fatura (convenio, upper(situacao));
-create index fatura_idx_data_entrega on fatura (data_entrega);
-create index fatura_idx_data_fechamento on fatura (data_fechamento);
-create unique index fatura_idx_fatura_fechamento on fatura (convenio, data_fechamento, tipo, segmento, paciente_id, animal_id);
-create unique index fatura_idx_id on fatura (upper(codigo));
-create index fatura_idx_last_modified on fatura (last_modified);
-create index fatura_idx_numero_fatura on fatura (upper(numero_fatura));
-create index fatura_idx_paciente_id on fatura (paciente_id);
-create index fatura_idx_segmento on fatura (segmento);
-create index fatura_idx_situacao on fatura (upper(situacao));
-create index fatura_idx_tipo on fatura (tipo);
+create index fatura_animal_id_idx on fatura (animal_id);
+create index fatura_convenio_idx on fatura (convenio);
+create index fatura_convenio_situacao_idx on fatura (convenio, upper(situacao));
+create index fatura_data_entrega_idx on fatura (data_entrega);
+create index fatura_data_fechamento_idx on fatura (data_fechamento);
+create unique index fatura_convenio_data_fechamento_tipo_segmento_pacien_9d842c_idx on fatura (convenio, data_fechamento, tipo, segmento, paciente_id, animal_id);
+create index fatura_last_modified_idx on fatura (last_modified);
+create index fatura_numero_fatura_idx on fatura (upper(numero_fatura));
+create index fatura_paciente_id_idx on fatura (paciente_id);
+create index fatura_segmento_idx on fatura (segmento);
+create index fatura_situacao_idx on fatura (upper(situacao));
+create index fatura_tipo_idx on fatura (tipo);
 
 create table fonte_pagadora (
     id bigint primary key,
@@ -625,21 +605,19 @@ create table fonte_pagadora (
     valor_teto_os double precision,
     versao_check varchar(50)
 );
-create index fonte_pagadora_$tbl_convenio on fonte_pagadora (id);
-create unique index fonte_pagadora_idkey on fonte_pagadora (id);
-create index fonte_pagadora_idx_apelido on fonte_pagadora (upper(apelido));
-create index fonte_pagadora_idx_codigo_cliente on fonte_pagadora (codigo_cliente);
-create index fonte_pagadora_idx_disponivel_web on fonte_pagadora (disponivel_web);
-create index fonte_pagadora_idx_faturamento_eletronico_autorizacao_online_id on fonte_pagadora (faturamento_eletronico_autorizacao_online_id);
-create index fonte_pagadora_idx_faturamento_eletronico_id on fonte_pagadora (faturamento_eletronico_id);
-create index fonte_pagadora_idx_grupo on fonte_pagadora (upper(grupo));
-create index fonte_pagadora_idx_grupo2 on fonte_pagadora (upper(grupo2));
-create index fonte_pagadora_idx_grupo_elegibilidade_interna_id on fonte_pagadora (grupo_elegibilidade_interna_id);
-create unique index fonte_pagadora_idx_id_lis_antigo on fonte_pagadora (upper(id_lis_antigo));
-create index fonte_pagadora_idx_nota_fiscal_pessoa_fisica_id on fonte_pagadora (nota_fiscal_pessoa_fisica_id);
-create index fonte_pagadora_idx_status on fonte_pagadora (status);
-create index fonte_pagadora_idx_tipo_convenio on fonte_pagadora (upper(tipo_convenio));
-create index fonte_pagadora_ixd_empresa_id on fonte_pagadora (empresa_id);
+create index fonte_pagadora_apelido_idx on fonte_pagadora (upper(apelido));
+create index fonte_pagadora_codigo_cliente_idx on fonte_pagadora (codigo_cliente);
+create index fonte_pagadora_disponivel_web_idx on fonte_pagadora (disponivel_web);
+create index fonte_pagadora_faturamento_eletronico_autorizacao_online_id_idx on fonte_pagadora (faturamento_eletronico_autorizacao_online_id);
+create index fonte_pagadora_faturamento_eletronico_id_idx on fonte_pagadora (faturamento_eletronico_id);
+create index fonte_pagadora_grupo_idx on fonte_pagadora (upper(grupo));
+create index fonte_pagadora_grupo2_idx on fonte_pagadora (upper(grupo2));
+create index fonte_pagadora_grupo_elegibilidade_interna_id_idx on fonte_pagadora (grupo_elegibilidade_interna_id);
+create unique index fonte_pagadora_id_lis_antigo_idx on fonte_pagadora (upper(id_lis_antigo));
+create index fonte_pagadora_nota_fiscal_pessoa_fisica_id_idx on fonte_pagadora (nota_fiscal_pessoa_fisica_id);
+create index fonte_pagadora_status_idx on fonte_pagadora (status);
+create index fonte_pagadora_tipo_convenio_idx on fonte_pagadora (upper(tipo_convenio));
+create index fonte_pagadora_empresa_id_idx on fonte_pagadora (empresa_id);
 
 create table fonte_pagadora_dado_cadastral (
     id varchar(50) primary key,
@@ -654,10 +632,8 @@ create table fonte_pagadora_dado_cadastral (
     dado_tamanho text not null,
     dado_tipo text not null,
     data_inicio text not null,
-    codigo varchar(50) not null,
     versao_check varchar(50)
 );
-create unique index fonte_pagadora_dado_cadastral_idx_id on fonte_pagadora_dado_cadastral (upper(codigo));
 
 create table fonte_pagadora_teto_faturamento (
     id bigint primary key,
@@ -669,7 +645,6 @@ create table fonte_pagadora_teto_faturamento (
     valor_teto double precision,
     versao_check varchar(50)
 );
-create unique index fonte_pagadora_teto_faturamento_idkey on fonte_pagadora_teto_faturamento (id);
 
 create table teto_faturamento (
     id bigint primary key,
@@ -679,7 +654,6 @@ create table teto_faturamento (
     saldo double precision not null,
     versao_check varchar(50)
 );
-create unique index teto_faturamento_idkey on teto_faturamento (id);
 
 create table fonte_pagadora_procedimento_isolado (
     id bigint primary key,
@@ -691,14 +665,13 @@ create table fonte_pagadora_procedimento_isolado (
     terceiro_isolado_id varchar(50),
     versao_check varchar(50)
 );
-create unique index fonte_pagadora_procedimento_isolado_idkey on fonte_pagadora_procedimento_isolado (id);
-create index fonte_pagadora_procedimento_isolado_idx_convenio_id on fonte_pagadora_procedimento_isolado (convenio_id);
-create unique index fonte_pagadora_procedimento_isolado_idx_convenio_procedimento on fonte_pagadora_procedimento_isolado (convenio_id, upper(procedimento_id));
-create index fonte_pagadora_procedimento_isolado_idx_primeiro_isolado_id on fonte_pagadora_procedimento_isolado (upper(primeiro_isolado_id));
-create index fonte_pagadora_procedimento_isolado_idx_procedimento_id on fonte_pagadora_procedimento_isolado (upper(procedimento_id));
-create index fonte_pagadora_procedimento_isolado_idx_quarto_isolado_id on fonte_pagadora_procedimento_isolado (upper(quarto_isolado_id));
-create index fonte_pagadora_procedimento_isolado_idx_segundo_isolado_id on fonte_pagadora_procedimento_isolado (upper(segundo_isolado_id));
-create index fonte_pagadora_procedimento_isolado_idx_terceiro_isolado_id on fonte_pagadora_procedimento_isolado (upper(terceiro_isolado_id));
+create index fonte_pagadora_procedimento_isolado_convenio_id_idx on fonte_pagadora_procedimento_isolado (convenio_id);
+create unique index fonte_pagadora_procedimento_isolado_convenio_id_proc_456c67_idx on fonte_pagadora_procedimento_isolado (convenio_id, upper(procedimento_id));
+create index fonte_pagadora_procedimento_isolado_primeiro_isolado_id_idx on fonte_pagadora_procedimento_isolado (upper(primeiro_isolado_id));
+create index fonte_pagadora_procedimento_isolado_procedimento_id_idx on fonte_pagadora_procedimento_isolado (upper(procedimento_id));
+create index fonte_pagadora_procedimento_isolado_quarto_isolado_id_idx on fonte_pagadora_procedimento_isolado (upper(quarto_isolado_id));
+create index fonte_pagadora_procedimento_isolado_segundo_isolado_id_idx on fonte_pagadora_procedimento_isolado (upper(segundo_isolado_id));
+create index fonte_pagadora_procedimento_isolado_terceiro_isolado_id_idx on fonte_pagadora_procedimento_isolado (upper(terceiro_isolado_id));
 
 create table gestao_contrato (
     id bigint primary key,
@@ -707,10 +680,9 @@ create table gestao_contrato (
     tipo integer not null,
     versao_check integer
 );
-create unique index gestao_contrato_idkey on gestao_contrato (id);
-create index gestao_contrato_idx_cruzado_id on gestao_contrato (cruzado_id);
-create unique index gestao_contrato_idx_fonte_pagadora_id on gestao_contrato (fonte_pagadora_id);
-create index gestao_contrato_idx_tipo on gestao_contrato (tipo);
+create index gestao_contrato_cruzado_id_idx on gestao_contrato (cruzado_id);
+create unique index gestao_contrato_fonte_pagadora_id_idx on gestao_contrato (fonte_pagadora_id);
+create index gestao_contrato_tipo_idx on gestao_contrato (tipo);
 
 create table gestao_contrato_dado_cadastral (
     id bigint primary key,
@@ -724,9 +696,8 @@ create table gestao_contrato_dado_cadastral (
     unidade_financeira_id varchar(50),
     versao_check integer
 );
-create unique index gestao_contrato_dado_cadastral_idkey on gestao_contrato_dado_cadastral (id);
-create unique index gestao_contrato_dado_cadastral_idx_gestao_contrato_cruzado_item on gestao_contrato_dado_cadastral (gestao_contrato_id, cruzado_item_id);
-create index gestao_contrato_dado_cadastral_idx_gestao_contrato_id on gestao_contrato_dado_cadastral (gestao_contrato_id);
+create unique index gestao_contrato_dado_cadastral_gestao_contrato_id_cr_2ce618_idx on gestao_contrato_dado_cadastral (gestao_contrato_id, cruzado_item_id);
+create index gestao_contrato_dado_cadastral_gestao_contrato_id_idx on gestao_contrato_dado_cadastral (gestao_contrato_id);
 
 create table gestao_contrato_excecao (
     id bigint primary key,
@@ -743,13 +714,12 @@ create table gestao_contrato_excecao (
     vacina_id bigint,
     versao_check integer
 );
-create unique index gestao_contrato_excecao_idkey on gestao_contrato_excecao (id);
-create index gestao_contrato_excecao_idx_gestao_contrato_dado_cadastral_id on gestao_contrato_excecao (gestao_contrato_dado_cadastral_id);
-create index gestao_contrato_excecao_idx_gestao_contrato_id on gestao_contrato_excecao (gestao_contrato_id);
-create unique index gestao_contrato_excecao_idx_gestao_contrato_procedimento_gc_dado_cadastral on gestao_contrato_excecao (gestao_contrato_id, upper(procedimento_id), gestao_contrato_dado_cadastral_id);
-create unique index gestao_contrato_excecao_idx_gestao_contrato_vacina_gc_dado_cadastral on gestao_contrato_excecao (gestao_contrato_id, vacina_id, gestao_contrato_dado_cadastral_id);
-create index gestao_contrato_excecao_idx_nao_coberto on gestao_contrato_excecao (nao_coberto);
-create index gestao_contrato_excecao_idx_negociacao_especial on gestao_contrato_excecao (negociacao_especial);
+create index gestao_contrato_excecao_gestao_contrato_dado_cadastral_id_idx on gestao_contrato_excecao (gestao_contrato_dado_cadastral_id);
+create index gestao_contrato_excecao_gestao_contrato_id_idx on gestao_contrato_excecao (gestao_contrato_id);
+create unique index gestao_contrato_excecao_gestao_contrato_id_procedime_c2a149_idx on gestao_contrato_excecao (gestao_contrato_id, upper(procedimento_id), gestao_contrato_dado_cadastral_id);
+create unique index gestao_contrato_excecao_gestao_contrato_id_vacina_id_2334b9_idx on gestao_contrato_excecao (gestao_contrato_id, vacina_id, gestao_contrato_dado_cadastral_id);
+create index gestao_contrato_excecao_nao_coberto_idx on gestao_contrato_excecao (nao_coberto);
+create index gestao_contrato_excecao_negociacao_especial_idx on gestao_contrato_excecao (negociacao_especial);
 
 create table unidade_coleta (
     id bigint primary key,
@@ -875,19 +845,17 @@ create table unidade_coleta (
     utiliza_pre_impressa integer,
     versao_check varchar(50)
 );
-create index unidade_coleta_$tbl_posto on unidade_coleta (id);
-create unique index unidade_coleta_idkey on unidade_coleta (id);
-create index unidade_coleta_idx_descricao on unidade_coleta (upper(descricao));
-create index unidade_coleta_idx_disponivel_web on unidade_coleta (disponivel_web);
-create index unidade_coleta_idx_endereco_bairro on unidade_coleta (upper(endereco_bairro));
-create index unidade_coleta_idx_endereco_cidade on unidade_coleta (upper(endereco_cidade));
-create index unidade_coleta_idx_grupo_resultado_anterior on unidade_coleta (grupo_resultado_anterior);
-create unique index unidade_coleta_idx_id_lis_antigo on unidade_coleta (upper(id_lis_antigo));
-create index unidade_coleta_idx_integracao_id on unidade_coleta (integracao_id);
-create index unidade_coleta_idx_regiao on unidade_coleta (regiao_id);
-create index unidade_coleta_idx_regional on unidade_coleta (upper(regional));
-create unique index unidade_coleta_idx_unidade_atendimento_filas_id on unidade_coleta (upper(unidade_atendimento_filas_id));
-create index unidade_coleta_idx_unidade_atendimento_id on unidade_coleta (unidade_atendimento_id);
+create index unidade_coleta_descricao_idx on unidade_coleta (upper(descricao));
+create index unidade_coleta_disponivel_web_idx on unidade_coleta (disponivel_web);
+create index unidade_coleta_endereco_bairro_idx on unidade_coleta (upper(endereco_bairro));
+create index unidade_coleta_endereco_cidade_idx on unidade_coleta (upper(endereco_cidade));
+create index unidade_coleta_grupo_resultado_anterior_idx on unidade_coleta (grupo_resultado_anterior);
+create unique index unidade_coleta_id_lis_antigo_idx on unidade_coleta (upper(id_lis_antigo));
+create index unidade_coleta_integracao_id_idx on unidade_coleta (integracao_id);
+create index unidade_coleta_regiao_id_idx on unidade_coleta (regiao_id);
+create index unidade_coleta_regional_idx on unidade_coleta (upper(regional));
+create unique index unidade_coleta_unidade_atendimento_filas_id_idx on unidade_coleta (upper(unidade_atendimento_filas_id));
+create index unidade_coleta_unidade_atendimento_id_idx on unidade_coleta (unidade_atendimento_id);
 
 create table unidade_procedimento_restricao (
     id bigint primary key,
@@ -896,12 +864,11 @@ create table unidade_procedimento_restricao (
     unidade_coleta_id bigint,
     versao_check varchar(50)
 );
-create unique index unidade_procedimento_restricao_idkey on unidade_procedimento_restricao (id);
-create index unidade_procedimento_restricao_idx_procedimento_id on unidade_procedimento_restricao (upper(procedimento_id));
-create unique index unidade_procedimento_restricao_idx_procedimento_id_unidade_atendimento on unidade_procedimento_restricao (upper(procedimento_id), unidade_atendimento_id);
-create unique index unidade_procedimento_restricao_idx_procedimento_id_unidade_coleta on unidade_procedimento_restricao (upper(procedimento_id), unidade_coleta_id);
-create index unidade_procedimento_restricao_idx_unidade_atendimento_id on unidade_procedimento_restricao (unidade_atendimento_id);
-create index unidade_procedimento_restricao_idx_unidade_coleta_id on unidade_procedimento_restricao (unidade_coleta_id);
+create index unidade_procedimento_restricao_procedimento_id_idx on unidade_procedimento_restricao (upper(procedimento_id));
+create unique index unidade_procedimento_restricao_procedimento_id_unida_3634a3_idx on unidade_procedimento_restricao (upper(procedimento_id), unidade_atendimento_id);
+create unique index unidade_procedimento_restricao_procedimento_id_unida_24e295_idx on unidade_procedimento_restricao (upper(procedimento_id), unidade_coleta_id);
+create index unidade_procedimento_restricao_unidade_atendimento_id_idx on unidade_procedimento_restricao (unidade_atendimento_id);
+create index unidade_procedimento_restricao_unidade_coleta_id_idx on unidade_procedimento_restricao (unidade_coleta_id);
 
 create table agenda (
     id bigint primary key,
@@ -927,16 +894,15 @@ create table agenda (
     vigencia_final date,
     vigencia_inicio date
 );
-create unique index agenda_idkey on agenda (id);
-create index agenda_idx_exclusiva on agenda (exclusiva);
-create unique index agenda_idx_id_lis_antigo on agenda (upper(id_lis_antigo));
-create index agenda_idx_integracao_dispositivo_localizacao_id on agenda (integracao_dispositivo_localizacao_id);
-create index agenda_idx_item_especifico on agenda (item_especifico);
-create index agenda_idx_pacs on agenda (integracao);
-create index agenda_idx_sala_id on agenda (sala_id);
-create index agenda_idx_sexo on agenda (upper(sexo));
-create index agenda_idx_status on agenda (status);
-create index agenda_idx_tipo on agenda (tipo);
+create index agenda_exclusiva_idx on agenda (exclusiva);
+create unique index agenda_id_lis_antigo_idx on agenda (upper(id_lis_antigo));
+create index agenda_integracao_dispositivo_localizacao_id_idx on agenda (integracao_dispositivo_localizacao_id);
+create index agenda_item_especifico_idx on agenda (item_especifico);
+create index agenda_integracao_idx on agenda (integracao);
+create index agenda_sala_id_idx on agenda (sala_id);
+create index agenda_sexo_idx on agenda (upper(sexo));
+create index agenda_status_idx on agenda (status);
+create index agenda_tipo_idx on agenda (tipo);
 
 create table agenda_procedimento (
     id bigint primary key,
@@ -947,12 +913,11 @@ create table agenda_procedimento (
     todos boolean,
     versao_check integer
 );
-create unique index agenda_procedimento_idkey on agenda_procedimento (id);
-create index agenda_procedimento_idx_agenda_id on agenda_procedimento (agenda_id);
-create index agenda_procedimento_idx_agenda_procedimento on agenda_procedimento (agenda_id, upper(procedimento_id));
-create index agenda_procedimento_idx_agenda_todos on agenda_procedimento (agenda_id, todos);
-create index agenda_procedimento_idx_prioridade on agenda_procedimento (prioridade);
-create index agenda_procedimento_idx_procedimento_id on agenda_procedimento (upper(procedimento_id));
+create index agenda_procedimento_agenda_id_idx on agenda_procedimento (agenda_id);
+create index agenda_procedimento_agenda_id_procedimento_id_idx on agenda_procedimento (agenda_id, upper(procedimento_id));
+create index agenda_procedimento_agenda_id_todos_idx on agenda_procedimento (agenda_id, todos);
+create index agenda_procedimento_prioridade_idx on agenda_procedimento (prioridade);
+create index agenda_procedimento_procedimento_id_idx on agenda_procedimento (upper(procedimento_id));
 
 create table tabela_preco (
     id bigint primary key,
@@ -967,10 +932,9 @@ create table tabela_preco (
     versao_cbhpm varchar(50),
     versao_check varchar(50)
 );
-create unique index tabela_preco_idkey on tabela_preco (id);
-create index tabela_preco_idx_descricao on tabela_preco (upper(descricao));
-create unique index tabela_preco_idx_id_lis_antigo on tabela_preco (upper(id_lis_antigo));
-create index tabela_preco_idx_status on tabela_preco (status);
+create index tabela_preco_descricao_idx on tabela_preco (upper(descricao));
+create unique index tabela_preco_id_lis_antigo_idx on tabela_preco (upper(id_lis_antigo));
+create index tabela_preco_status_idx on tabela_preco (status);
 
 create table tabela_preco_item (
     id bigint primary key,
@@ -986,12 +950,11 @@ create table tabela_preco_item (
     vacina_id bigint,
     versao_check varchar(50)
 );
-create unique index tabela_preco_item_idkey on tabela_preco_item (id);
-create unique index tabela_preco_item_idx_proc_tabela on tabela_preco_item (tabela_preco_id, upper(procedimento_id));
-create index tabela_preco_item_idx_procedimento_id on tabela_preco_item (upper(procedimento_id));
-create index tabela_preco_item_idx_tabela_preco_id on tabela_preco_item (tabela_preco_id);
-create index tabela_preco_item_idx_vacina_id on tabela_preco_item (vacina_id);
-create unique index tabela_preco_item_idx_vacina_tabela on tabela_preco_item (tabela_preco_id, vacina_id);
+create unique index tabela_preco_item_tabela_preco_id_procedimento_id_idx on tabela_preco_item (tabela_preco_id, upper(procedimento_id));
+create index tabela_preco_item_procedimento_id_idx on tabela_preco_item (upper(procedimento_id));
+create index tabela_preco_item_tabela_preco_id_idx on tabela_preco_item (tabela_preco_id);
+create index tabela_preco_item_vacina_id_idx on tabela_preco_item (vacina_id);
+create unique index tabela_preco_item_tabela_preco_id_vacina_id_idx on tabela_preco_item (tabela_preco_id, vacina_id);
 
 create table tabela_preco_item_componente (
     id bigint primary key,
@@ -1002,10 +965,9 @@ create table tabela_preco_item_componente (
     unidade_financeira_id varchar(50),
     versao_check varchar(50)
 );
-create unique index tabela_preco_item_componente_idkey on tabela_preco_item_componente (id);
-create index tabela_preco_item_componente_idx_componente_preco_id on tabela_preco_item_componente (componente_preco_id);
-create unique index tabela_preco_item_componente_idx_preco_item_componente_preco on tabela_preco_item_componente (preco_item_id, componente_preco_id);
-create index tabela_preco_item_componente_idx_preco_item_id on tabela_preco_item_componente (preco_item_id);
+create index tabela_preco_item_componente_componente_preco_id_idx on tabela_preco_item_componente (componente_preco_id);
+create unique index tabela_preco_item_componente_preco_item_id_component_60ba38_idx on tabela_preco_item_componente (preco_item_id, componente_preco_id);
+create index tabela_preco_item_componente_preco_item_id_idx on tabela_preco_item_componente (preco_item_id);
 
 create table tabela_preco_item_mat_med (
     id bigint primary key,
@@ -1018,9 +980,8 @@ create table tabela_preco_item_mat_med (
     valor double precision,
     versao_check varchar(50)
 );
-create unique index tabela_preco_item_mat_med_idkey on tabela_preco_item_mat_med (id);
-create unique index tabela_preco_item_mat_med_idx_tabela_adicional on tabela_preco_item_mat_med (tabela_preco_id, adicional_id);
-create index tabela_preco_item_mat_med_idx_tabela_preco_id on tabela_preco_item_mat_med (tabela_preco_id);
+create unique index tabela_preco_item_mat_med_tabela_preco_id_adicional_id_idx on tabela_preco_item_mat_med (tabela_preco_id, adicional_id);
+create index tabela_preco_item_mat_med_tabela_preco_id_idx on tabela_preco_item_mat_med (tabela_preco_id);
 
 create table codigo_cobranca_negociacao_especial (
     id bigint primary key,
@@ -1028,8 +989,7 @@ create table codigo_cobranca_negociacao_especial (
     os_cobranca bigint,
     versao_check varchar(50)
 );
-create unique index codigo_cobranca_negociacao_especial_idkey on codigo_cobranca_negociacao_especial (id);
-create unique index codigo_cobranca_negociacao_especial_idx_os_cobranca on codigo_cobranca_negociacao_especial (os_cobranca);
+create unique index codigo_cobranca_negociacao_especial_os_cobranca_idx on codigo_cobranca_negociacao_especial (os_cobranca);
 
 create table cruzado_item (
     id bigint primary key,
@@ -1038,9 +998,8 @@ create table cruzado_item (
     item_codigo varchar(15) not null,
     versao_check varchar(50)
 );
-create unique index cruzado_item_idkey on cruzado_item (id);
-create index cruzado_item_idx_cruzado on cruzado_item (arquivo_cruzado);
-create unique index cruzado_item_idx_cruzado_item_codigo on cruzado_item (arquivo_cruzado, upper(item_codigo));
+create index cruzado_item_arquivo_cruzado_idx on cruzado_item (arquivo_cruzado);
+create unique index cruzado_item_arquivo_cruzado_item_codigo_idx on cruzado_item (arquivo_cruzado, upper(item_codigo));
 
 create table adicional (
     id bigint primary key,
@@ -1058,16 +1017,14 @@ create table adicional (
     valor_variavel boolean,
     versao_check varchar(50)
 );
-create unique index adicional_idkey on adicional (id);
-create unique index adicional_idx_id_lis_antigo on adicional (upper(id_lis_antigo), upper(tipo));
-create index adicional_idx_tipo on adicional (upper(tipo));
+create unique index adicional_id_lis_antigo_tipo_idx on adicional (upper(id_lis_antigo), upper(tipo));
+create index adicional_tipo_idx on adicional (upper(tipo));
 
 create table unidade_financeira (
     id varchar(50) primary key,
     data_alteracao text,
     data_novo_valor date not null,
     descricao varchar(50) not null,
-    codigo varchar(50) not null,
     id_lis_antigo varchar(50),
     responsavel varchar(50) not null,
     responsavel_antigo text,
@@ -1076,8 +1033,7 @@ create table unidade_financeira (
     valor_atual double precision not null,
     versao_check varchar(50)
 );
-create unique index unidade_financeira_idx_id on unidade_financeira (upper(codigo));
-create unique index unidade_financeira_idx_id_lis_antigo on unidade_financeira (upper(id_lis_antigo));
+create unique index unidade_financeira_id_lis_antigo_idx on unidade_financeira (upper(id_lis_antigo));
 
 create table rotina_prazo (
     id varchar(50) primary key,
@@ -1085,15 +1041,13 @@ create table rotina_prazo (
     dias text,
     horario_entrega text,
     horario_limite text,
-    codigo varchar(50) not null,
     id_lis_antigo varchar(50),
     num_dias_apos text,
     observacoes varchar(250),
     tipo_dias text,
     versao_check varchar(50)
 );
-create unique index rotina_prazo_idx_id on rotina_prazo (upper(codigo));
-create unique index rotina_prazo_idx_id_lis_antigo on rotina_prazo (upper(id_lis_antigo));
+create unique index rotina_prazo_id_lis_antigo_idx on rotina_prazo (upper(id_lis_antigo));
 
 create table setor (
     id varchar(50) primary key,
@@ -1110,7 +1064,6 @@ create table setor (
     dia_producao text,
     frase_setor text,
     grupo_visualizacao varchar(300),
-    codigo varchar(50) not null,
     id_lis_antigo varchar(50),
     intercorrencia_area_padrao_id bigint,
     intercorrencia_assunto_padrao varchar(100),
@@ -1128,11 +1081,10 @@ create table setor (
     unidade_atendimento_id bigint not null,
     versao_check varchar(50)
 );
-create index setor_idx_ativo on setor (ativo);
-create index setor_idx_descricao on setor (upper(descricao));
-create unique index setor_idx_id on setor (upper(codigo));
-create unique index setor_idx_id_lis_antigo on setor (upper(id_lis_antigo));
-create index setor_idx_last_modified on setor (last_modified);
+create index setor_ativo_idx on setor (ativo);
+create index setor_descricao_idx on setor (upper(descricao));
+create unique index setor_id_lis_antigo_idx on setor (upper(id_lis_antigo));
+create index setor_last_modified_idx on setor (last_modified);
 
 create table setor_unidade_processamento (
     id bigint primary key,
@@ -1144,8 +1096,7 @@ create table setor_unidade_processamento (
     unidade_coleta_id bigint,
     versao_check varchar(50)
 );
-create unique index setor_unidade_processamento_idkey on setor_unidade_processamento (id);
-create index setor_unidade_processamento_idx_setor_execucao on setor_unidade_processamento (upper(setor_execucao_id));
+create index setor_unidade_processamento_setor_execucao_id_idx on setor_unidade_processamento (upper(setor_execucao_id));
 
 create table regiao (
     id bigint primary key,
@@ -1155,7 +1106,6 @@ create table regiao (
     utiliza_horario_verao boolean not null,
     versao_check varchar(50)
 );
-create unique index regiao_idkey on regiao (id);
 
 create table regiao_item (
     id bigint primary key,
@@ -1165,9 +1115,8 @@ create table regiao_item (
     regiao_id bigint not null,
     versao_check varchar(50)
 );
-create unique index regiao_item_idkey on regiao_item (id);
-create index regiao_item_idx_regiao on regiao_item (regiao_id);
-create unique index regiao_item_idx_regiao_periodo on regiao_item (regiao_id, data_inicio, data_final);
+create index regiao_item_regiao_id_idx on regiao_item (regiao_id);
+create unique index regiao_item_regiao_id_data_inicio_data_final_idx on regiao_item (regiao_id, data_inicio, data_final);
 
 create table horario_verao (
     id bigint primary key,
@@ -1176,8 +1125,7 @@ create table horario_verao (
     fuso varchar(50) not null,
     versao_check varchar(50)
 );
-create unique index horario_verao_idkey on horario_verao (id);
-create unique index horario_verao_idx_periodo on horario_verao (data_inicio, data_final);
+create unique index horario_verao_data_inicio_data_final_idx on horario_verao (data_inicio, data_final);
 
 create table tuss (
     id bigint primary key,
@@ -1187,8 +1135,7 @@ create table tuss (
     tipo varchar(50),
     versao_check varchar(50)
 );
-create unique index tuss_idkey on tuss (id);
-create unique index tuss_idx_codigo_tuss on tuss (upper(codigo_tuss));
+create unique index tuss_codigo_tuss_idx on tuss (upper(codigo_tuss));
 
 create table tuss_correlacao (
     id bigint primary key,
@@ -1200,18 +1147,15 @@ create table tuss_correlacao (
     tabela_id varchar(50),
     versao_check varchar(50)
 );
-create unique index tuss_correlacao_idkey on tuss_correlacao (id);
-create unique index tuss_correlacao_idx_adicional_fonte_pagadora on tuss_correlacao (adicional_id, fonte_pagadora_id);
-create unique index tuss_correlacao_idx_procedimento_fonte_pagadora on tuss_correlacao (upper(procedimento_id), fonte_pagadora_id);
+create unique index tuss_correlacao_adicional_id_fonte_pagadora_id_idx on tuss_correlacao (adicional_id, fonte_pagadora_id);
+create unique index tuss_correlacao_procedimento_id_fonte_pagadora_id_idx on tuss_correlacao (upper(procedimento_id), fonte_pagadora_id);
 
 create table tabela_tiss (
     id varchar(50) primary key,
     descricao varchar(100) not null,
-    codigo varchar(50) not null,
     tuss boolean,
     versao_check varchar(50)
 );
-create unique index tabela_tiss_idx_id on tabela_tiss (upper(codigo));
 
 create table parametros_tiss (
     id varchar(50) primary key,
@@ -1224,7 +1168,6 @@ create table parametros_tiss (
     guia_tiss_assinatura_beneficiario varchar(50),
     guia_tiss_assinatura_prestador varchar(50),
     guia_tiss_assinatura_solicitante varchar(50),
-    codigo varchar(50) not null,
     id_imagem varchar(10),
     identificacao_solicitante varchar(50),
     imprime_codigo_os varchar(50),
@@ -1245,19 +1188,16 @@ create table parametros_tiss (
     usuario_prestador varchar(50),
     versao_check varchar(50)
 );
-create unique index parametros_tiss_idx_id on parametros_tiss (upper(codigo));
 
 create table parametros_gerais_tiss (
     id varchar(50) primary key,
-    codigo varchar(50) not null,
     id_lis_antigo varchar(50),
     profissional_responsavel bigint not null,
     versao_check varchar(50),
     versao_padrao varchar(50) not null
 );
-create unique index parametros_gerais_tiss_idx_id on parametros_gerais_tiss (upper(codigo));
-create unique index parametros_gerais_tiss_idx_id_lis_antigo on parametros_gerais_tiss (upper(id_lis_antigo));
-create index parametros_gerais_tiss_idx_profissional_responsavel on parametros_gerais_tiss (profissional_responsavel);
+create unique index parametros_gerais_tiss_id_lis_antigo_idx on parametros_gerais_tiss (upper(id_lis_antigo));
+create index parametros_gerais_tiss_profissional_responsavel_idx on parametros_gerais_tiss (profissional_responsavel);
 
 create table faturamento_eletronico (
     id bigint primary key,
@@ -1266,5 +1206,151 @@ create table faturamento_eletronico (
     descricao varchar(50) not null,
     versao_check varchar(50)
 );
-create unique index faturamento_eletronico_idkey on faturamento_eletronico (id);
-create unique index faturamento_eletronico_idx_codigo_faturamento on faturamento_eletronico (upper(codigo_faturamento));
+create unique index faturamento_eletronico_codigo_faturamento_idx on faturamento_eletronico (upper(codigo_faturamento));
+
+create table autorizacao_online (
+    id varchar(50) primary key,
+    adicional_variavel_fonte_pagadora_id bigint,
+    adicional_variavel_id bigint,
+    chave_acesso_web_service varchar(300),
+    configuracao_ssl text,
+    configuracao_ssl_fonte_pagadora text,
+    controle_sequencial integer,
+    dado_cadastral_arquivo bigint,
+    dado_cadastral_autorizacao bigint,
+    dado_cadastral_aux bigint,
+    dado_cadastral_guia_operadora_retorno_pre_autorizacao bigint,
+    dado_cadastral_guia_pre_autorizacao bigint,
+    dado_cadastral_guia_principal_retorno_pre_autorizacao bigint,
+    dado_cadastral_matricula_pre_autorizacao bigint,
+    dado_cadastral_senha_retorno_pre_autorizacao bigint,
+    diretorio_exportacao varchar(250),
+    diretorio_importacao varchar(250),
+    ems varchar(50),
+    extensao_final_pedido varchar(3),
+    extensao_final_resposta varchar(3),
+    intervalo_autorizacao varchar(50),
+    layout integer,
+    layout_importacao_arquivo varchar(50),
+    login_orizon varchar(50),
+    maximo_procedimentos varchar(50),
+    modalidade_integracao varchar(50),
+    numero_tentativas varchar(50),
+    obrigatorio_cancelamento varchar(50),
+    permite_autorizacao_manual varchar(50) not null,
+    permite_cancelar_somente_autorizacao varchar(50),
+    permite_inclusao_procedimento varchar(50) not null,
+    senha text,
+    senha_ftp varchar(50),
+    senha_orizon varchar(50),
+    terminal varchar(50),
+    tipo_leitura_arquivo varchar(50),
+    tipo_mensagem varchar(50),
+    tipo_protocolo varchar(50),
+    url_autorizacao varchar(300),
+    url_solicitacao_dados_ticket varchar(250),
+    url_webservice_autorizador varchar(250),
+    url_webservice_importacao_pedido varchar(250),
+    url_webservice_lis varchar(250),
+    usuario varchar(512),
+    usuario_ftp varchar(50),
+    utiliza_cancelamento_online varchar(50) not null,
+    utiliza_elegibilidade varchar(50) not null,
+    utiliza_importacao_pedido_pre_autorizacao boolean,
+    utilizar_padrao_tiss boolean not null,
+    versao_check varchar(50)
+);
+
+create table componente_preco (
+    id bigint primary key,
+    descricao varchar(50) not null,
+    local_definicao integer not null,
+    status integer not null,
+    versao_check varchar(50)
+);
+create index componente_preco_descricao_idx on componente_preco (upper(descricao));
+create index componente_preco_local_definicao_idx on componente_preco (local_definicao);
+create index componente_preco_status_idx on componente_preco (status);
+
+create table componente_preco_tabela (
+    id bigint primary key,
+    componente_preco_id bigint not null,
+    tabela_preco_id bigint not null,
+    versao_check varchar(50)
+);
+create unique index componente_preco_tabela_componente_preco_id_tabela_preco_id_idx on componente_preco_tabela (componente_preco_id, tabela_preco_id);
+create index componente_preco_tabela_tabela_preco_id_idx on componente_preco_tabela (tabela_preco_id);
+
+create table componente_preco_fonte_pagadora (
+    id bigint primary key,
+    componente_preco_id bigint not null,
+    fonte_pagadora_id bigint not null,
+    turno_id bigint,
+    unidade_id varchar(50) not null,
+    versao_check varchar(50)
+);
+create unique index componente_preco_fonte_pagadora_fonte_pagadora_id_co_4d7a18_idx on componente_preco_fonte_pagadora (fonte_pagadora_id, componente_preco_id, turno_id);
+create index componente_preco_fonte_pagadora_fonte_pagadora_id_idx on componente_preco_fonte_pagadora (fonte_pagadora_id);
+
+create table gestao_contrato_excecao_componente (
+    id bigint primary key,
+    componente_preco_id bigint not null,
+    gestao_contrato_excecao_id bigint not null,
+    porcentagem double precision,
+    quantidade double precision,
+    unidade_financeira_id varchar(50),
+    versao_check integer
+);
+create unique index gestao_contrato_excecao_componente_gestao_contrato_e_191e5f_idx on gestao_contrato_excecao_componente (gestao_contrato_excecao_id, componente_preco_id);
+create index gestao_contrato_excecao_componente_gestao_contrato_e_7f1a72_idx on gestao_contrato_excecao_componente (gestao_contrato_excecao_id);
+
+create table franquia_compartilhada (
+    id bigint primary key,
+    fonte_pagadora_complementar_id bigint,
+    fonte_pagadora_principal_id bigint,
+    os_id bigint,
+    pendente boolean,
+    versao_check varchar(50)
+);
+create index franquia_compartilhada_fonte_pagadora_complementar_id_idx on franquia_compartilhada (fonte_pagadora_complementar_id);
+create index franquia_compartilhada_fonte_pagadora_principal_id_idx on franquia_compartilhada (fonte_pagadora_principal_id);
+create unique index franquia_compartilhada_os_id_idx on franquia_compartilhada (os_id);
+create index franquia_compartilhada_os_id_fonte_pagadora_principal_id_idx on franquia_compartilhada (os_id, fonte_pagadora_principal_id);
+create index franquia_compartilhada_pendente_idx on franquia_compartilhada (pendente);
+
+create table percentual_cobranca (
+    id bigint primary key,
+    agrupamento varchar(50) not null,
+    aplicacao_regra_percentual_todos_componentes_preco boolean,
+    cobranca_ciclica boolean not null,
+    descricao text not null,
+    ordenacao varchar(50) not null,
+    status boolean not null,
+    versao_check varchar(50)
+);
+create index percentual_cobranca_agrupamento_idx on percentual_cobranca (upper(agrupamento));
+create index percentual_cobranca_aplicacao_regra_percentual_todos_4205a4_idx on percentual_cobranca (aplicacao_regra_percentual_todos_componentes_preco);
+create index percentual_cobranca_cobranca_ciclica_idx on percentual_cobranca (cobranca_ciclica);
+create index percentual_cobranca_ordenacao_idx on percentual_cobranca (upper(ordenacao));
+create index percentual_cobranca_status_idx on percentual_cobranca (status);
+
+create table percentual_cobranca_fonte_pagadora (
+    id bigint primary key,
+    fonte_pagadora_id bigint not null,
+    percentual_cobranca_id bigint not null,
+    versao_check varchar(50)
+);
+create index percentual_cobranca_fonte_pagadora_fonte_pagadora_id_idx on percentual_cobranca_fonte_pagadora (fonte_pagadora_id);
+create unique index percentual_cobranca_fonte_pagadora_percentual_cobran_de360d_idx on percentual_cobranca_fonte_pagadora (percentual_cobranca_id, fonte_pagadora_id);
+create index percentual_cobranca_fonte_pagadora_percentual_cobranca_id_idx on percentual_cobranca_fonte_pagadora (percentual_cobranca_id);
+
+create table percentual_cobranca_procedimento (
+    id bigint primary key,
+    ordem integer,
+    percentual_cobranca_id bigint not null,
+    procedimento_id varchar(50) not null,
+    versao_check varchar(50)
+);
+create index percentual_cobranca_procedimento_percentual_cobranca_id_idx on percentual_cobranca_procedimento (percentual_cobranca_id);
+create unique index percentual_cobranca_procedimento_percentual_cobranca_e6be59_idx on percentual_cobranca_procedimento (percentual_cobranca_id, upper(procedimento_id));
+create index percentual_cobranca_procedimento_procedimento_id_idx on percentual_cobranca_procedimento (upper(procedimento_id));

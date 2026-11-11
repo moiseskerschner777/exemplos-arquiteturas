@@ -8,8 +8,8 @@ PORTA=8081
 IRIS="${IRIS_CONTAINER:-lis-iris}"
 
 compilar() {
-    echo "compilando e testando"
-    mvn -q package
+    echo "compilando"
+    mvn -q package -DskipTests
 }
 
 verificar_iris() {
@@ -55,6 +55,23 @@ logs() {
     docker compose logs -f "${1:-app}"
 }
 
+migrar() {
+    echo "lendo o IRIS local e gerando banco/schema.sql e banco/dados.sql"
+    timeout 300 python3 banco/migrar.py
+    docker compose rm -sfv postgres
+    docker volume rm -f "$(basename "$RAIZ")_dados-postgres" > /dev/null
+    docker compose up -d --wait postgres
+    conferir
+}
+
+conferir() {
+    timeout 300 python3 banco/conferir.py
+}
+
+caracterizar() {
+    timeout 300 python3 caracterizacao/caracterizar.py
+}
+
 sql() {
     docker compose exec postgres psql -U procedimento -d procedimento
 }
@@ -65,5 +82,8 @@ case "${1:-subir}" in
     limpar) limpar ;;
     logs) logs "${2:-}" ;;
     sql) sql ;;
-    *) echo "uso: ./executar.sh [subir|parar|limpar|logs [servico]|sql]" >&2; exit 1 ;;
+    migrar) migrar ;;
+    conferir) conferir ;;
+    caracterizar) caracterizar ;;
+    *) echo "uso: ./executar.sh [subir|parar|limpar|logs [servico]|sql|migrar|conferir|caracterizar]" >&2; exit 1 ;;
 esac

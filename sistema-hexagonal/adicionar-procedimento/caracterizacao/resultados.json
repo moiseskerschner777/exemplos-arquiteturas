@@ -1,0 +1,605 @@
+[
+ {
+  "id": "C00",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:31.815112634",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C01",
+  "status": 422,
+  "resposta": {
+   "motivo": "NAO_ENCONTRADO",
+   "codigoCos": "temErroMnemo=2",
+   "retornoCos": 1,
+   "mensagem": "XXXX",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C02a",
+  "status": 422,
+  "resposta": {
+   "motivo": "SEXO_INCOMPATIVEL",
+   "codigoCos": "temErroMnemo=5",
+   "retornoCos": 1,
+   "mensagem": "TGO",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C02b",
+  "status": 422,
+  "resposta": {
+   "motivo": "SEXO_INCOMPATIVEL",
+   "codigoCos": "temErroMnemo=5",
+   "retornoCos": 1,
+   "mensagem": "TGO",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C03",
+  "status": 422,
+  "resposta": {
+   "motivo": "RESTRITO_NA_UNIDADE",
+   "codigoCos": "temErroMnemo=4",
+   "retornoCos": 1,
+   "mensagem": "TGO",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C04a",
+  "status": 422,
+  "resposta": {
+   "motivo": "INATIVO",
+   "codigoCos": "temErroMnemo=1",
+   "retornoCos": 1,
+   "mensagem": "TGO",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C04b",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:31.979730976",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C05",
+  "status": 422,
+  "resposta": {
+   "motivo": "MATERIAL_DIVERSOS_PENDENTE",
+   "codigoCos": "verificaDiversosMaterias",
+   "retornoCos": 1,
+   "mensagem": "escolha o material",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C06",
+  "status": 422,
+  "resposta": {
+   "motivo": "CATEGORIA_INCOMPATIVEL",
+   "codigoCos": "temErroMnemo=3",
+   "retornoCos": 1,
+   "mensagem": "TGO",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C07",
+  "status": 422,
+  "resposta": {
+   "motivo": "FATURA_FECHADA",
+   "codigoCos": "FaturaFechada",
+   "retornoCos": 1,
+   "mensagem": "Cortesia",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C10a",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.087062271",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": [
+    {
+     "motivo": "AGENDA_ESPECIFICA",
+     "mensagem": "procedimento com agenda específica"
+    }
+   ]
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C10b",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.114624493",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C13",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.151329431",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": "3",
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": [
+    {
+     "motivo": "ANTIBIOGRAMA_SEM_CULTURA",
+     "mensagem": "3"
+    }
+   ]
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C14",
+  "status": 422,
+  "resposta": {
+   "motivo": "CULTURA_SEM_ANTIBIOGRAMA",
+   "codigoCos": "antibiogramaPrecisaCultura",
+   "retornoCos": 0,
+   "mensagem": "TGO",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C15",
+  "status": 422,
+  "resposta": {
+   "motivo": "SEM_COBERTURA",
+   "codigoCos": "fontePagadoraNaoCobreProcedimento",
+   "retornoCos": 0,
+   "mensagem": "\nFonte pagadora: Particular - Particular\n\n - TGO - Transaminase glutamico oxalacetica (AST/TGO)\n   Motivo: Fora do rol",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C17",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.23694239",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": "\n - TGO - Transaminase glutamico oxalacetica (AST/TGO): Exige guia médica",
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C18",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.263185546",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": "Alerta(s) cadastro:\n\n - TGO: Jejum de 8 horas",
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C19",
+  "status": 422,
+  "resposta": {
+   "motivo": "JA_INCLUIDO",
+   "codigoCos": "exameJaIncluido",
+   "retornoCos": 0,
+   "mensagem": "HEM",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C21a",
+  "status": 422,
+  "resposta": {
+   "motivo": "SEM_PRECO",
+   "codigoCos": "CalcularValorExame",
+   "retornoCos": 0,
+   "mensagem": "TGO",
+   "materialId": null,
+   "materialDescricao": null,
+   "materiaisPermitidos": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C21b",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 0,
+   "negociacaoEspecial": true,
+   "entrega": "2026-11-11T14:36:32.338437446",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C22",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.373358926",
+   "materialId": "00002",
+   "materialDescricao": "Sangue",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C25",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.400760855",
+   "materialId": "00003",
+   "materialDescricao": "Soro braço esquerdo",
+   "materialComplementoObrigatorio": true,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C26",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.428589742",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": [
+    {
+     "motivo": "TETO_ATENDIMENTO_EXCEDIDO",
+     "mensagem": "Atingido o valor máximo em uma única O.S. para o convênio Particular"
+    }
+   ]
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C27",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.455351325",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": [
+    {
+     "motivo": "TETO_FATURAMENTO_EXCEDIDO",
+     "mensagem": "O novo valor cobrado está acima do teto de faturamento da F.P. Particular"
+    }
+   ]
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C28",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.48172205",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": [
+    {
+     "motivo": "TETO_FATURAMENTO_EXCEDIDO",
+     "mensagem": "O novo valor cobrado está acima do teto de faturamento da F.P. Particular"
+    },
+    {
+     "motivo": "SALDO_EM_RECALCULO",
+     "mensagem": "Convênio Particular não pode ser utilizado. Recalculando o saldo do período."
+    }
+   ]
+  },
+  "situacao": "passou",
+  "diferencas": []
+ },
+ {
+  "id": "C30",
+  "status": 200,
+  "resposta": {
+   "procedimentoId": "34",
+   "mnemonico": "TGO",
+   "descricao": "Transaminase glutamico oxalacetica (AST/TGO)",
+   "fontePagadoraId": 1,
+   "valor": 50.0,
+   "negociacaoEspecial": false,
+   "entrega": "2026-11-11T14:36:32.509157187",
+   "materialId": "00003",
+   "materialDescricao": "Soro",
+   "materialComplementoObrigatorio": false,
+   "setorId": "003",
+   "recipientes": [
+    "4"
+   ],
+   "recipientesAmostraEncaminhada": [
+    "4"
+   ],
+   "recipientesNaoPermitemAmostraEncaminhada": [],
+   "tsaId": null,
+   "fraseAutorizacao": null,
+   "alertaCadastro": null,
+   "pendencias": []
+  },
+  "situacao": "passou",
+  "diferencas": []
+ }
+]

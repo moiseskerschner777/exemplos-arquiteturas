@@ -9,6 +9,8 @@ services:
       - "5434:5432"
     volumes:
       - dados-postgres:/var/lib/postgresql/data
+      - ./banco/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./banco/dados.sql:/docker-entrypoint-initdb.d/02-dados.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U procedimento -d procedimento"]
       interval: 3s

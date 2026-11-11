@@ -1,6 +1,5 @@
-import os
-
 import iris
+import os
 
 TABELAS = [
     ("TblExame", "procedimento"),
@@ -48,7 +47,22 @@ TABELAS = [
     ("TblParametrosTiss", "parametros_tiss"),
     ("TblParametrosGeraisTiss", "parametros_gerais_tiss"),
     ("TblFaturamentoEletronico", "faturamento_eletronico"),
+    ("TblAutorizacaoOnline", "autorizacao_online"),
+    ("TblComponentePreco", "componente_preco"),
+    ("TblComponentePrecoTabela", "componente_preco_tabela"),
+    ("TblComponentePrecoFontePagadora", "componente_preco_fonte_pagadora"),
+    ("TblGestaoContratoExcecaoComponente", "gestao_contrato_excecao_componente"),
+    ("s01_dado_ordemServico.FranquiaCompartilhada", "franquia_compartilhada"),
+    ("s01_dado_percentualCobranca.PercentualCobranca", "percentual_cobranca"),
+    ("s01_dado_percentualCobranca.PercentualCobrancaFontePagadora", "percentual_cobranca_fonte_pagadora"),
+    ("s01_dado_percentualCobranca.PercentualCobrancaProcedimento", "percentual_cobranca_procedimento"),
 ]
+
+
+def esquema_e_tabela(nome_iris):
+    if "." in nome_iris:
+        return nome_iris.split(".", 1)
+    return "dado", nome_iris
 
 
 def conectar_iris():
